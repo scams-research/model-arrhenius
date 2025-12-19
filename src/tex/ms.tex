@@ -236,9 +236,9 @@ Panel (b) shows these samples as a two-dimensional distribution, revealing that 
 Panels (c) and (d) show the marginal distributions for each parameter, obtained by integrating the samples along each axis. 
 This is equivalent to integrating the joint distribution over the other parameter, asking, for example, ``what is the probability of this value of $\Ea$, regardless of $A$?''
 
-The activation energy is approximately normally distributed, with mean and \qty{95}{\percent} credible interval of \input{output/activation_energy_llzo.txt}. 
+The activation energy is approximately normally distributed, with mean and \qty{95}{\percent} credible interval of \variable{output/activation_energy_llzo.txt}. 
 The pre-exponential factor, however, is not normally distributed---it follows an approximately log-normal distribution. 
-For this parameter, we report the median and \qty{95}{\percent} credible interval: \input{output/preexp_llzo.txt}.
+For this parameter, we report the median and \qty{95}{\percent} credible interval: \variable{output/preexp_llzo.txt}.
 This illustrates one advantage of Bayesian posterior sampling: we obtain the full distribution of each parameter, rather than assuming normality.
  For $A$, reporting a symmetric confidence interval around the mean would misrepresent our uncertainty.
 
@@ -326,7 +326,7 @@ We compute the Bayes factor comparing the VTF model ($\beta$) to the Arrhenius m
 \cref{fig:agcrse2} shows the results for two different simulation lengths.
 Panels (a) and (b) compare the Arrhenius and VTF fits using \qty{40}{\pico\second} of data from the diffusive regime~\footnote{Mean-squared displacements exhibit ballistic behaviour at short times and diffusive behaviour at longer times~\cite{He2018,Bonkowski2025}. 
 Because diffusion coefficients are estimated by linear regression of MSD against time, only data from the diffusive regime, where the MSD is approximately linear in time, is used for fitting.}. 
-Both models fit the data reasonably well, and the Bayes factor is $\ln{(B_{\beta\alpha})}=\;$\input{output/bayes_40.txt}, where the uncertainty is a \qty{95}{\percent} confidence interval. 
+Both models fit the data reasonably well, and the Bayes factor is $\ln{(B_{\beta\alpha})}=\;$\variable{output/bayes_40.txt}, where the uncertainty is a \qty{95}{\percent} confidence interval. 
 This indicates weak evidence for the VTF model, but is well below the threshold for strong evidence. 
 At this simulation length, we have no evidential basis for preferring the more complex VTF model.
 
@@ -344,7 +344,7 @@ At this simulation length, we have no evidential basis for preferring the more c
 Panels (c) and (d) show the same comparison using \qty{140}{\pico\second} of diffusive-regime data. 
 The conductivity data appear similar, but the uncertainties are much smaller. 
 With tighter error bars, the deviation from linearity becomes more clearly resolved. 
-The Bayes factor increases to $\ln(B_{\beta\alpha}) =\,\input{output/bayes_140.txt}$, well above the threshold of \num{5}, and strong evidence for the more complex VTF model over the simpler Arrhenius alternative.
+The Bayes factor increases to $\ln(B_{\beta\alpha}) =\,\variable{output/bayes_140.txt}$, well above the threshold of \num{5}, and strong evidence for the more complex VTF model over the simpler Arrhenius alternative.
 
 Panel (e) shows how the Bayes factor evolves with simulation length. 
 As the data become more precise, the evidence for non-Arrhenius behaviour grows.
@@ -383,7 +383,7 @@ For each posterior sample, we calculate $\sigma(\qty{300}{\kelvin})$ using the A
 Fig.~\ref{fig:extrapolate} shows the result. 
 The posterior distribution, shown as shaded bands in the main panel, widens substantially as we extrapolate to lower temperatures. 
 The inset shows the distribution of predicted conductivity at \qty{300}{\kelvin}. 
-This distribution is broad and asymmetric, with a median and \qty{95}{\percent} credible interval of \input{output/d_300.txt}.
+This distribution is broad and asymmetric, with a median and \qty{95}{\percent} credible interval of \variable{output/d_300.txt}.
 The breadth of this distribution illustrates why uncertainty propagation matters. 
 A point estimate at \qty{300}{\kelvin} would suggest a precise prediction; the full distribution reveals that the extrapolated conductivity spans nearly an order of magnitude. 
 This uncertainty is not a failure of the method; rather, it accurately reflects how much the data can tell us about behaviour at temperatures we did not measure.
@@ -464,12 +464,12 @@ For the VTF model: $p(B) \sim \mathcal{U}(0, \qty{1}{\electronvolt})$, $p(A) \si
         \toprule
         $T$ / K & $\Delta t_\mathrm{min}$ / ps & $\Delta(\Delta t)$ / ps \\
         \midrule
-        300 & 70.0 & \input{output/dt300.txt} \\
-        350 & 50.0 & \input{output/dt350.txt} \\
-        400 & 30.0 &\input{output/dt400.txt} \\
-        500 & 25.0 & \input{output/dt500.txt} \\
-        600 & 22.5 & \input{output/dt600.txt} \\
-        700 & 20.0 & \input{output/dt700.txt} \\
+        300 & 70.0 & \variable{output/dt300.txt} \\
+        350 & 50.0 & \variable{output/dt350.txt} \\
+        400 & 30.0 &\variable{output/dt400.txt} \\
+        500 & 25.0 & \variable{output/dt500.txt} \\
+        600 & 22.5 & \variable{output/dt600.txt} \\
+        700 & 20.0 & \variable{output/dt700.txt} \\
         \bottomrule
     \end{tabular}
 \end{table}
