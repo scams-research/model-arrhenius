@@ -53,6 +53,17 @@ dependencies:
   src/scripts/ms.tex:
     - src/scripts/make_tex.py
     - src/tex/bib.bib
+    - src/tex/output/activation_energy_llzo.txt
+    - src/tex/output/bayes_40.txt
+    - src/tex/output/bayes_140.txt
+    - src/tex/output/d_300.txt
+    - src/tex/output/dt300.txt
+    - src/tex/output/dt350.txt
+    - src/tex/output/dt400.txt
+    - src/tex/output/dt500.txt
+    - src/tex/output/dt600.txt
+    - src/tex/output/dt700.txt
+    - src/tex/output/preexp_llzo.txt
   src/scripts/llzo.py:
     - src/scripts/_fig_params.py
     {% for temp in [500, 600, 700, 800] %}
