@@ -20,6 +20,4 @@ jobs:
           showyourwork-spec: git+https://github.com/showyourwork/showyourwork
         uses: showyourwork/showyourwork-action@main
         env:
-          OVERLEAF_EMAIL: ${{ secrets.OVERLEAF_EMAIL }}
-          OVERLEAF_PASSWORD: ${{ secrets.OVERLEAF_PASSWORD }}
           SHOWYOURWORK_UNRESTRICTED_FS: "false"
