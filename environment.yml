@@ -1,0 +1,12 @@
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - conda-forge::python=3.13.8
+  - pip=25.3.0
+  - numpy=2.3.0
+  - scipy=1.16.3
+  - mdanalysis=2.10.0
+  - pip:
+      - matplotlib==3.10.7
+      - kinisi==2.0.3

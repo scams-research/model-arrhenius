@@ -1,0 +1,25 @@
+name: build
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build the article PDF
+    concurrency: showyourwork-${{ github.ref }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Build the article PDF
+        id: build
+        with:
+          showyourwork-spec: git+https://github.com/showyourwork/showyourwork
+        uses: showyourwork/showyourwork-action@main
+        env:
+          OVERLEAF_EMAIL: ${{ secrets.OVERLEAF_EMAIL }}
+          OVERLEAF_PASSWORD: ${{ secrets.OVERLEAF_PASSWORD }}
+          SHOWYOURWORK_UNRESTRICTED_FS: "false"

@@ -1,0 +1,134 @@
+# Enable rule caching on Zenodo?
+cache_on_zenodo: false 
+
+# Workflow graph (DAG) generation
+dag:
+  # Generate `dag.pdf` on each build?
+  render: false
+  # Graphviz layout engine
+  engine: sfdp
+  # Group files by type into plates?
+  group_by_type: false
+  # Custom graph attributes
+  graph_attr:
+    ranksep: "1"
+    nodesep: "0.65"
+  # Custom node attributes
+  node_attr:
+    shape: "box"
+    penwidth: "2"
+    width: "1"
+  # Files and glob patterns to ignore
+  # ignore_files:
+  #  - src/tex/orcid-ID.png
+
+# Externally-hosted datasets, e.g. on Zenodo
+datasets:
+    10.5281/zenodo.17702491:
+        contents:
+            trajectories500.xyz: src/data/raw/llzo/t500/trajectories500.xyz
+            trajectories600.xyz: src/data/raw/llzo/t600/trajectories600.xyz
+            trajectories700.xyz: src/data/raw/llzo/t700/trajectories700.xyz
+            trajectories800.xyz: src/data/raw/llzo/t800/trajectories800.xyz
+            traj_500.gro: src/data/raw/llzo/t500/traj_500.gro
+            traj_600.gro: src/data/raw/llzo/t600/traj_600.gro
+            traj_700.gro: src/data/raw/llzo/t700/traj_700.gro
+            traj_800.gro: src/data/raw/llzo/t800/traj_800.gro
+            traj_500.xtc: src/data/raw/llzo/t500/traj_500.xtc
+            traj_600.xtc: src/data/raw/llzo/t600/traj_600.xtc
+            traj_700.xtc: src/data/raw/llzo/t700/traj_700.xtc
+            traj_800.xtc: src/data/raw/llzo/t800/traj_800.xtc
+    10.5281/zenodo.17910336:
+        contents:
+            agcrse2_T300.zip: src/data/raw/agcrse2/agcrse2_T300.zip
+            agcrse2_T350.zip: src/data/raw/agcrse2/agcrse2_T350.zip
+            agcrse2_T400.zip: src/data/raw/agcrse2/agcrse2_T400.zip
+            agcrse2_T500.zip: src/data/raw/agcrse2/agcrse2_T500.zip
+            agcrse2_T600.zip: src/data/raw/agcrse2/agcrse2_T600.zip
+            agcrse2_T700.zip: src/data/raw/agcrse2/agcrse2_T700.zip 
+            structure.data: src/data/raw/agcrse2/structure.data
+
+# Custom file dependencies
+dependencies:
+  src/scripts/ms.tex:
+    - src/scripts/make_tex.py
+    - src/tex/bib.bib
+  src/scripts/llzo.py:
+    - src/scripts/_fig_params.py
+    {% for temp in [500, 600, 700, 800] %}
+    - src/data/reduced/llzo/t{{temp}}/diffusion.h5
+    {% endfor %}
+    - src/data/reduced/llzo/arrhenius_samples.npz
+  src/scripts/extrapolate.py:
+    - src/scripts/_fig_params.py
+    {% for temp in [500, 600, 700, 800] %}
+    - src/data/reduced/llzo/t{{temp}}/diffusion.h5
+    {% endfor %}    
+    - src/data/reduced/llzo/arrhenius_samples.npz
+  src/scripts/agcrse2.py:
+    - src/scripts/_fig_params.py
+    {% for length in [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140] %}
+    {% for temp in [300, 350, 400, 500, 600, 700] %}
+    - src/data/reduced/agcrse2/Dmsd{{temp}}_{{length}}.h5
+    {% endfor %}
+    {% for n in range(10) %}
+    - src/data/reduced/agcrse2/bayes_{{length}}_{{n}}.npz
+    {% endfor %}
+    {% endfor %}
+  src/scripts/llzo_sim.py:
+    - src/scripts/_fig_params.py
+    {% for temp in [500, 600, 700, 800] %}
+    - src/data/reduced/llzo/t{{temp}}/diffusion.h5
+    {% endfor %}
+  src/scripts/simulation.py:
+    - src/scripts/_fig_params.py
+    {% for length in [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140] %}    
+    {% for temp in [300, 350, 400, 500, 600, 700] %}
+    - src/data/reduced/agcrse2/Dmsd{{temp}}_{{length}}.h5
+    {% endfor %}
+    - src/data/reduced/agcrse2/bayes_{{length}}_0.npz
+    {% endfor %}
+
+# Name of the `.tex` manuscript and corresponding `.pdf` article
+ms_name: ms
+
+# Optimize DAG by removing unnecessary jobs upstream of cache hits?
+optimize_caching: false
+
+# Always require all input files to be present on disk for workflow to pass?
+require_inputs: true
+
+# Allow cacheable rules to run on GitHub Actions?
+run_cache_rules_on_ci: false
+
+# Mapping of script file extensions to instructions for executing them
+scripts:
+  py: python {script}
+
+# Display of the `showyourwork` stamp on first page
+stamp:
+  # Show the stamp?
+  enabled: false 
+
+# Set parameters for the margin icons
+margin_icons:
+    # Make the margins icons grey
+    colors:
+        cache: "0.25,0.25,0.25"
+        dataset: "0.25,0.25,0.25"
+        github: "0.05,0.25,0.25"
+        sandbox: "0.25,0.25,0.25"
+    # Position the icons slightly closer to the figures
+    horizontal_offset: -4
+
+# Enable SyncTeX?
+synctex: True
+
+# Command-line options to be passed to tectonic when building the manuscript
+tectonic_args: []
+
+# Enable verbose output?
+verbose: true 
+
+# Version of `showyourwork` used to create this workflow
+version: 0.4.4.dev37+g1526059
