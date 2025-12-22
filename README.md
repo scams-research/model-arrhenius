@@ -19,13 +19,9 @@ This tutorial introduces the use of Bayesian methods for analysing temperature-d
 </a>
 <a href="https://github.com/scams-research/model-arrhenius/raw/main-pdf/ms.pdf">
 <img src="https://img.shields.io/badge/article-pdf-blue.svg?style=flat" alt="Read the article"/>
-<!-- </a>
-<a href="https://doi.org/10.5281/zenodo.7949905">
-<img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7949905.svg"/>
-</a> -->
-<!-- <a href="https://doi.org/10.26434/chemrxiv-2023-44b29">
-<img src="https://img.shields.io/badge/ChemRxiv-10.26434%2Fchemrxiv--2023--44b29-orange.svg"/>
-</a> -->
+<a href="https://arxiv.org/abs/2512.17792">
+<img src="https://img.shields.io/badge/arXiv-2512.17792-orange.svg"/>
+</a>
 <br><br>
 <a href="https://orcid.org/0000-0003-3381-5911">Andrew R. McCluskey</a>&ast;
 <a href="https://orcid.org/0000-0001-9722-5676">Samuel W. Coles</a>
