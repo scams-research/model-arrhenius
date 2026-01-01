@@ -43,9 +43,10 @@
   \affiliation{Yusuf Hamied Department of Chemistry, University of Cambridge, Lensfield Road, Cambridge, CB2 1EW, UK.}
   \affiliation{Lennard-Jones Centre, University of Cambridge, Trinity Lane, Cambridge, CB2 1TN, UK.}
 \author{Benjamin J. Morgan}
+\email{b.j.morgan@bath.ac.uk}
   \affiliation{Department of Chemistry, University of Bath, Claverton Down, Bath, BA2 7AY, UK.}
   \affiliation{The Faraday Institution, Quad One, Harwell Science and Innovation Campus, Didcot, OX11 0RA, UK.}
-  \email{b.j.morgan@bath.ac.uk}
+
 
 \begin{abstract}
 Temperature-dependent transport data, including diffusion coefficients and ionic conductivities, are routinely analysed by fitting empirical models such as the Arrhenius equation. 
@@ -162,29 +163,29 @@ For the Arrhenius model, this means finding all combinations of activation energ
 
 Given a set of measured conductivities at different temperatures, how do we determine which parameter values are compatible with these data? 
 The starting point is to ask: for a given choice of $\Ea$ and $A$, how well does the model predict the observed data?
-We quantify this using the likelihood: the probability of observing our data given a particular set of parameter values. This is a conditional probability, written $\pr{\bm{x}}{\mathbf{\theta}}$, where $\bm{x}$ denotes our data and $\mathbf{\theta}$ the parameters. 
+We quantify this using the likelihood: the probability of observing our data given a particular set of parameter values. This is a conditional probability, written $\pr{\bm{x}}{\bm{\theta}}$, where $\bm{x}$ denotes our data and $\bm{\theta}$ the parameters. 
 If a parameter combination produces model predictions that closely match the observations (within their uncertainties), the likelihood is high; if the predictions are far from the data, the likelihood is low.
 
 The likelihood tells us how probable our data are given some parameters. 
 But this is not quite what we want. 
 We want the inverse: how probable are the parameters given our data? 
-This is the posterior distribution, written $\pr{\mathbf{\theta}}{\bm{x}}$.
-Likelihood and posterior are related but not the same: $\pr{\bm{x}}{\mathbf{\theta}}$ is not the same as $\pr{\mathbf{\theta}}{\bm{x}}$. 
+This is the posterior distribution, written $\pr{\bm{\theta}}{\bm{x}}$.
+Likelihood and posterior are related but not the same: $\pr{\bm{x}}{\bm{\theta}}$ is not the same as $\pr{\bm{\theta}}{\bm{x}}$. 
 The relationship between them is given by Bayes' theorem:
 \begin{equation}
-\pr{\mathbf{\theta}}{\bm{x}} = \frac{\pr{\bm{x}}{\mathbf{\theta}} \times p(\mathbf{\theta})}{p(\bm{x})}.
+\pr{\bm{\theta}}{\bm{x}} = \frac{\pr{\bm{x}}{\bm{\theta}} \times p(\bm{\theta})}{p(\bm{x})}.
 \end{equation}
-Here, $\pr{\mathbf{\theta}}{\bm{x}}$ is the posterior: the probability of parameters $\mathbf{\theta}$ given the data. 
-$\pr{\bm{x}}{\mathbf{\theta}}$ is the likelihood. 
-$p(\mathbf{\theta})$ is the prior: our knowledge about plausible parameter values before seeing the data. 
+Here, $\pr{\bm{\theta}}{\bm{x}}$ is the posterior: the probability of parameters $\bm{\theta}$ given the data. 
+$\pr{\bm{x}}{\bm{\theta}}$ is the likelihood. 
+$p(\bm{\theta})$ is the prior: our knowledge about plausible parameter values before seeing the data. 
 $p(\bm{x})$ is a normalising constant that ensures the posterior integrates to one.
 Because $p(\bm{x})$ is a constant for any given dataset, the posterior is proportional to the likelihood times the prior:
 \begin{equation}
-\pr{\mathbf{\theta}}{\bm{x}} \propto \pr{\bm{x}}{\mathbf{\theta}} \times p(\mathbf{\theta}).
+\pr{\bm{\theta}}{\bm{x}} \propto \pr{\bm{x}}{\bm{\theta}} \times p(\bm{\theta}).
 \end{equation}
 This means we can characterise the posterior by evaluating the likelihood and prior across parameter space.
 
-The prior distribution, $p(\mathbf{\theta})$, encodes what we know about plausible parameter values before examining the data. 
+The prior distribution, $p(\bm{\theta})$, encodes what we know about plausible parameter values before examining the data. 
 In many cases, we have little prior knowledge, in which case we use broad, minimally informative priors: for example, a uniform distribution over a physically reasonable range.
 For the Arrhenius model, we require $\Ea > 0$ (activation energies are positive) and $A > 0$ (the pre-exponential factor is positive). 
 Beyond these physical constraints, we might specify uniform priors over ranges that comfortably encompass expected values. 
@@ -207,12 +208,12 @@ Any other distribution would imply structure we have no evidence for.
 With this assumption, the likelihood takes the form of a multivariate normal distribution:
 % \begin{widetext}
     \begin{equation}
-        \pr{\bm{x}}{\mathbf{\theta}} = (2\pi)^{-\frac{k}{2}}|\bm{\Sigma}|^{-\frac{1}{2}}\exp\left\{-\frac{1}{2}\left[\bm{\mu} - \bm{x}\right]^\top\bm{\Sigma}^{-1}\left[\bm{\mu} - \bm{x}\right]\right\},
+        \pr{\bm{x}}{\bm{\theta}} = (2\pi)^{-\frac{k}{2}}|\bm{\Sigma}|^{-\frac{1}{2}}\exp\left\{-\frac{1}{2}\left[\bm{\mu} - \bm{x}\right]^\top\bm{\Sigma}^{-1}\left[\bm{\mu} - \bm{x}\right]\right\},
         \label{eqn:gen}
     \end{equation}
 % \end{widetext}
 %
-where $k$ is the number of measured temperatures, $\bm{\mu}$ is a vector of the measured conductivity values, $\Sigma$ is the covariance matrix of measurement uncertainties, and $\pr{\bm{x}}{\mathbf{\theta}}$ is the model prediction for parameters $\mathbf{\theta}$.
+where $k$ is the number of measured temperatures, $\bm{\mu}$ is a vector of the measured conductivity values, $\Sigma$ is the covariance matrix of measurement uncertainties, and $\pr{\bm{x}}{\bm{\theta}}$ is the model prediction for parameters $\bm{\theta}$.
 
 In practice, the procedure is as follows. 
 We start with a model---here, the Arrhenius equation---and define priors for each parameter. 
@@ -292,9 +293,9 @@ Here, $p(m)$ is our prior belief about the model before seeing the data.
 If we have no reason to prefer one model over another, we assign them equal prior probabilities. 
 In that case, comparing posterior model probabilities reduces to comparing the marginal likelihood, $\pr{\bm{x}}{m}$.
 The marginal likelihood is the probability of observing our data, averaged over all possible parameter values for that model. 
-If we denote the parameters of model $m$ as $\mathbf{\theta}_m$, this is:
+If we denote the parameters of model $m$ as $\bm{\theta}_m$, this is:
 \begin{equation}
-\pr{\bm{x}}{m} = \idotsint_{\mathbf{\theta}_m} \pr{\bm{x}}{\mathbf{\theta}_m, m} \,\, \pr{\mathbf{\theta}_m}{m}\,\mathrm{d}\mathbf{\theta}_m.
+\pr{\bm{x}}{m} = \idotsint_{\bm{\theta}_m} \pr{\bm{x}}{\bm{\theta}_m, m} \,\, \pr{\bm{\theta}_m}{m}\,\mathrm{d}\bm{\theta}_m.
 \end{equation}
 The first term in the integral is the likelihood: how well parameters $\theta_m$ predict the data. 
 The second is the prior: how plausible those parameters are before seeing the data.
@@ -310,9 +311,9 @@ To compare two models, we compute the ratio of their marginal likelihoods:
 B_{\beta\alpha} = \frac{\pr{\bm{x}}{m_\beta}}{\pr{\bm{x}}{m_\alpha}}.
 \end{equation}
 This ratio is called the Bayes factor. 
-If $B > 1$, the data favour model $\beta$; if $B_{\beta\alpha} < 1$, they favour model $\alpha$. 
+If $B_{\beta\alpha} > 1$, the data favour model $\beta$; if $B_{\beta\alpha} < 1$, they favour model $\alpha$. 
 The magnitude indicates the strength of the evidence. 
-A common interpretation, due to Kass and Raftery, is that $\ln(B) > 5$ (corresponding to $B > 150$) constitutes ``very strong'' evidence for the preferred model~\cite{Kass1995}.
+A common interpretation, due to Kass and Raftery, is that $\ln(B_{\beta\alpha}) > 5$ (corresponding to $B_{\beta\alpha} > 150$) constitutes ``very strong'' evidence for the preferred model~\cite{Kass1995}.
 
 The integral for the marginal likelihood can be challenging to compute, particularly for models with many parameters. 
 Markov chain Monte Carlo, which we used in Section~\ref{sec:parameter_estimation} for parameter estimation, does not directly provide the marginal likelihood. 
