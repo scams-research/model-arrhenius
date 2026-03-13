@@ -44,7 +44,7 @@ for i, ax in enumerate(axes):
                         lw=0,
                         zorder=10)
     ax.set_xlabel(r"$\Delta t$ / ps")
-    ax.set_ylabel(r"$\langle\Delta\mathbf{r}_{\mathrm{c}}(t)^2_{\mathrm{Ag}^+}\rangle$ / Å$^2$")
+    ax.set_ylabel(r"$\langle\Delta\mathbf{r}_{\mathrm{c}}(t)^2_{\mathrm{Li}^+}\rangle$ / Å$^2$")
     ax.set_xlim(0, None)
     ax.set_ylim(0, 35)
     ax.set_yticks([0, 10, 20, 30])

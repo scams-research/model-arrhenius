@@ -224,7 +224,7 @@ After sufficient exploration, the collected samples represent the posterior dist
 From these samples, we can extract summary statistics (e.g., means, medians, credible intervals) or visualise the full distribution to understand correlations between parameters.
 
 As an example of this procedure, we analyse lithium-ion conductivity data from molecular dynamics simulations of the cubic phase of lithium lanthanum zirconium oxide (c-LLZO), a solid electrolyte of interest for solid-state batteries (see Appendix for the simulation details). 
-The data come from simulations at four temperatures (\qtylist{500; 600; 700; 800}{\kelvin}), giving us four conductivity estimates with associated uncertainties.
+The data come from simulations at four temperatures (\qtylist{500; 600; 700; 800}{\kelvin}), giving us four conductivity estimates with associated uncertainties obtained via an approximate Bayesian regression scheme~\cite{McCluskey2024a}.
 To sample the posterior, we need to specify priors for $E_\mathrm{a}$ and $A$. 
 Since we have no strong prior knowledge, we use broad uniform distributions that comfortably span the range of physically plausible values. 
 With the likelihood and priors defined, we can run the sampler. 
@@ -336,7 +336,7 @@ At this simulation length, we have no evidential basis for preferring the more c
     \centering
     \includegraphics[width=\columnwidth]{figures/agcrse2.pdf}
     \vspace{-2\baselineskip}    
-    \caption{Comparison of Arrhenius (a, c) and VTF (b, d) models for silver-ion conductivity in \ce{AgCrSe2}. Black points show conductivity estimates with \qty{95}{\percent} credible intervals. Coloured shading shows models evaluated at parameter values sampled from each posterior. Panels (a, b) use a fitting window of \qty{40}{\pico\second}; panels (c, d) use \qty{140}{\pico\second}. (e) Bayes factor comparing VTF to Arrhenius as a function of the amount of diffusive-regime data used, $t_\mathrm{diff}$. The dashed line indicates $\ln(B_{\beta\alpha}) = 5$, the threshold for ``very strong'' evidence.}
+    \caption{Comparison of Arrhenius (a, c) and VTF (b, d) models for silver-ion conductivity in \ce{AgCrSe2}. Black points show conductivity estimates with \qty{95}{\percent} credible intervals. Coloured shading shows models evaluated at parameter values sampled from each posterior. Panels (a, b) use a fitting window of \qty{40}{\pico\second}; panels (c, d) use \qty{140}{\pico\second}. (e) Bayes factor comparing VTF to Arrhenius as a function of the amount of diffusive-regime data used, $t_\mathrm{diff}$, where the error bars represent a \qty{95}{\percent} confidence interval from 10 nested sampling repeats. The dashed line indicates $\ln(B_{\beta\alpha}) = 5$, the threshold for ``very strong'' evidence.}
     \label{fig:agcrse2}
     \script{agcrse2.py}
 \end{figure}
@@ -412,6 +412,7 @@ Combined with parameter estimation (Section~\ref{sec:parameter_estimation}) and 
 \label{sec:conc}
 
 This tutorial has introduced Bayesian methods for analysing temperature-dependent transport data, addressing three common challenges: estimating model parameters with meaningful uncertainties, selecting between competing models, and extrapolating predictions to unmeasured temperatures.
+This general framework may be applied to any transport data, such as diffu
 For parameter estimation, Bayesian posterior sampling returns the full distribution of parameter values compatible with the data—capturing asymmetries and correlations that point estimates with symmetric error bars would miss. For model selection, Bayes factors provide a rational basis for choosing between models of different complexity. For extrapolation, the same posterior samples enable straightforward uncertainty propagation, revealing how much (or how little) the data constrain predictions outside the measured range.
 The methods described here are implemented in the open-source Python package kinisi~\cite{McCluskey2024}, which we hope will make Bayesian analysis of transport data more broadly accessible.
 
