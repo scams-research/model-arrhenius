@@ -412,7 +412,7 @@ Combined with parameter estimation (Section~\ref{sec:parameter_estimation}) and 
 \label{sec:conc}
 
 This tutorial has introduced Bayesian methods for analysing temperature-dependent transport data, addressing three common challenges: estimating model parameters with meaningful uncertainties, selecting between competing models, and extrapolating predictions to unmeasured temperatures.
-This general framework may be applied to any transport data, such as diffu
+This general framework may be applied to any transport data, such as diffusion coefficients, viscosities, or thermal conductivities, provided the data have accurate uncertainty estimates.
 For parameter estimation, Bayesian posterior sampling returns the full distribution of parameter values compatible with the data—capturing asymmetries and correlations that point estimates with symmetric error bars would miss. For model selection, Bayes factors provide a rational basis for choosing between models of different complexity. For extrapolation, the same posterior samples enable straightforward uncertainty propagation, revealing how much (or how little) the data constrain predictions outside the measured range.
 The methods described here are implemented in the open-source Python package kinisi~\cite{McCluskey2024}, which we hope will make Bayesian analysis of transport data more broadly accessible.
 
