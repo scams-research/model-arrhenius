@@ -299,7 +299,7 @@ If we denote the parameters of model $m$ as $\bm{\theta}_m$, this is:
 \begin{equation}
 \pr{\bm{x}}{m} = \idotsint_{\bm{\theta}_m} \pr{\bm{x}}{\bm{\theta}_m, m} \,\, \pr{\bm{\theta}_m}{m}\,\mathrm{d}\bm{\theta}_m.
 \end{equation}
-The first term in the integral is the likelihood: how well parameters $\theta_m$ predict the data. 
+The first term in the integral is the likelihood: how well parameters $\bm{\theta}_m$ predict the data. 
 The second is the prior: how plausible those parameters are before seeing the data.
 This integral naturally penalises complex models. 
 A model with more parameters spreads its prior probability over a larger parameter space. 
@@ -536,7 +536,7 @@ This repository includes a fully reproducible \textsc{showyourwork} workflow, wh
 \section{Mean-squared displacement of LLZO as a function of temperature}
 \label{sec:llzo_plots}
 
-\cref{fig:llzo_sim} presents the mean-squared displacment data and resulting posterior distribution of linear models for a range of temperatures for LLZO. 
+\cref{fig:llzo_sim} presents the mean-squared displacement data and resulting posterior distribution of linear models for a range of temperatures for LLZO. 
 The marginal posterior distribution for $\D$ is then used to find $\sigma$, which is included in the LLZO analysis in the main text (\cref{fig:arrhenius}, \cref{fig:llzo}, and \cref{fig:extrapolate}). \\
 
 %
