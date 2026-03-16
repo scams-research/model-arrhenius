@@ -198,22 +198,25 @@ Markov chain Monte Carlo (MCMC) is a widely used family of sampling algorithms.
 The details of how MCMC works are beyond the scope of this tutorial, but the essential idea is that it generates a sequence of parameter samples that, collectively, represent the posterior distribution. 
 From these samples, we can compute summary statistics (means, medians, credible intervals) or visualise the full distribution.
 
-To apply this framework, we need to specify the likelihood function. 
-For temperature-dependent conductivity data, we assume that the measurement errors are normally distributed around the true values. 
-This assumption is often reasonable on two grounds. 
-First, the central limit theorem: if measurement errors arise from many independent sources, their sum will tend toward a normal distribution. 
-Second, the principle of maximum entropy: if we know only the mean and variance of a distribution, the normal distribution is the one that assumes the least additional structure. 
-If we know only the mean and variance of our errors, the normal distribution is the maximum-entropy choice. 
-Any other distribution would imply structure we have no evidence for.
-With this assumption, the likelihood takes the form of a multivariate normal distribution:
+To apply this framework, we first choose both a predictive model; for example, the Arrhenius equation; and a statistical model for the uncertainties in our data.
+Together, these determine the likelihood function we use in Bayes' theorem.
+For a model with parameters $\bm{\theta}$, each choice of parameters predicts a conductivity value at each measured temperature; call these predictions $\bm{\mu}(\bm{\theta})$.
+We also have our observed conductivity values, $\bm{x}$, which will not exactly match the predictions because of uncertainties in the data.
+A standard approach is to assume that the observed values are normally distributed around the model predictions. 
+This assumption of normally distributed data is often reasonable on two grounds.
+First, the central limit theorem: if errors arise from many independent sources, their sum will tend toward a normal distribution.
+Second, the principle of maximum entropy: if we know only the mean and variance of our errors, the normal distribution assumes the least additional structure.
+
+Under this assumption, our statistical model is a multivariate normal distribution, characterised by a covariance matrix $\bm{\Sigma}$ that describes the data uncertainties.
+The corresponding likelihood function is:
 % \begin{widetext}
     \begin{equation}
-        \pr{\bm{x}}{\bm{\theta}} = (2\pi)^{-\frac{k}{2}}|\bm{\Sigma}|^{-\frac{1}{2}}\exp\left\{-\frac{1}{2}\left[\bm{\mu} - \bm{x}\right]^\top\bm{\Sigma}^{-1}\left[\bm{\mu} - \bm{x}\right]\right\},
+        \pr{\bm{x}}{\bm{\theta}} = (2\pi)^{-\frac{k}{2}}|\bm{\Sigma}|^{-\frac{1}{2}}\exp\left\{-\frac{1}{2}\left[\bm{\mu}(\bm{\theta}) - \bm{x}\right]^\top\bm{\Sigma}^{-1}\left[\bm{\mu}(\bm{\theta}) - \bm{x}\right]\right\},
         \label{eqn:gen}
     \end{equation}
 % \end{widetext}
 %
-where $k$ is the number of measured temperatures, $\bm{\mu}$ is a vector of the measured conductivity values, $\Sigma$ is the covariance matrix of measurement uncertainties, and $\pr{\bm{x}}{\bm{\theta}}$ is the model prediction for parameters $\bm{\theta}$.
+where $k$ is the number of observations, $\bm{x}$ is the vector of observed conductivity values, $\bm{\mu}(\bm{\theta})$ is the vector of model predictions, and $\bm{\Sigma}$ is the covariance matrix.
 
 In practice, the procedure is as follows. 
 We start with a model---here, the Arrhenius equation---and define priors for each parameter. 
@@ -336,7 +339,7 @@ At this simulation length, we have no evidential basis for preferring the more c
     \centering
     \includegraphics[width=\columnwidth]{figures/agcrse2.pdf}
     \vspace{-2\baselineskip}    
-    \caption{Comparison of Arrhenius (a, c) and VTF (b, d) models for silver-ion conductivity in \ce{AgCrSe2}. Black points show conductivity estimates with \qty{95}{\percent} credible intervals. Coloured shading shows models evaluated at parameter values sampled from each posterior. Panels (a, b) use a fitting window of \qty{40}{\pico\second}; panels (c, d) use \qty{140}{\pico\second}. (e) Bayes factor comparing VTF to Arrhenius as a function of the amount of diffusive-regime data used, $t_\mathrm{diff}$, where the error bars represent a \qty{95}{\percent} confidence interval from 10 nested sampling repeats. The dashed line indicates $\ln(B_{\beta\alpha}) = 5$, the threshold for ``very strong'' evidence.}
+    \caption{Comparison of Arrhenius (a, c) and VTF (b, d) models for silver-ion conductivity in \ce{AgCrSe2}. Black points show conductivity estimates with \qty{95}{\percent} credible intervals. Coloured shading shows models evaluated at parameter values sampled from each posterior. Panels (a, b) use a fitting window of \qty{40}{\pico\second}; panels (c, d) use \qty{140}{\pico\second}. (e) Bayes factor comparing VTF to Arrhenius as a function of the amount of diffusive-regime data used, $t_\mathrm{diff}$, where the error bars represent a \qty{95}{\percent} confidence interval from 10 nested sampling repeats. These error bars reflect stochastic variability in the nested sampling algorithm, not data uncertainty, and so do not necessarily decrease with increasing $t_\mathrm{diff}$. The dashed line indicates $\ln(B_{\beta\alpha}) = 5$, the threshold for ``very strong'' evidence.}
     \label{fig:agcrse2}
     \script{agcrse2.py}
 \end{figure}
@@ -412,7 +415,7 @@ Combined with parameter estimation (Section~\ref{sec:parameter_estimation}) and 
 \label{sec:conc}
 
 This tutorial has introduced Bayesian methods for analysing temperature-dependent transport data, addressing three common challenges: estimating model parameters with meaningful uncertainties, selecting between competing models, and extrapolating predictions to unmeasured temperatures.
-This general framework may be applied to any transport data, such as diffusion coefficients, viscosities, or thermal conductivities, provided the data have accurate uncertainty estimates.
+Although our examples focus on transport data, the same framework applies to any temperature-dependent measurements with associated uncertainties---for example, reaction rates, mechanical properties, or any data fitted to Arrhenius-type models.
 For parameter estimation, Bayesian posterior sampling returns the full distribution of parameter values compatible with the data—capturing asymmetries and correlations that point estimates with symmetric error bars would miss. For model selection, Bayes factors provide a rational basis for choosing between models of different complexity. For extrapolation, the same posterior samples enable straightforward uncertainty propagation, revealing how much (or how little) the data constrain predictions outside the measured range.
 The methods described here are implemented in the open-source Python package kinisi~\cite{McCluskey2024}, which we hope will make Bayesian analysis of transport data more broadly accessible.
 
@@ -438,7 +441,7 @@ This work has benefitted from the input of all members of the \textsc{kinisi} de
 All conductivity data used in this work were derived from mean-squared displacement (MSD) analysis of molecular dynamics trajectories. 
 Self-diffusion coefficients were estimated from the long-time slope of the MSD via the Einstein relation, using approximate Bayesian regression~\cite{McCluskey2024a}. 
 MSDs exhibit ballistic behaviour at short times and diffusive behaviour at longer times~\cite{He2018,Bonkowski2025}; only data from the diffusive regime, where the MSD is approximately linear in time, can be used for this fitting. 
-Self-diffusion coefficients were converted to ionic conductivity estimates via the Nernst-Einstein relation, assuming a Haven ratio $H_\mathrm{R} = 1$.
+Self-diffusion coefficients were converted to illustrative conductivity estimates via the Nernst-Einstein relation, assuming a Haven ratio $H_\mathrm{R} = 1$.
 All of the analysis in this work was performed with \textsc{kinisi}-2.0.3~\cite{McCluskey2024}. 
 Analysis scripts are available in the Electronic Supplementary Information~\cite{McCluskey2025}. 
 
