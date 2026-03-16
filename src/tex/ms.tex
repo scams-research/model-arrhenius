@@ -101,10 +101,10 @@ In these cases, alternative models---such as the Vogel-Tammann-Fulcher equation~
 However, it is not always clear whether observed deviations indicate genuine non-Arrhenius behaviour or simply reflect noise in the data, raising the question of how to determine which model is best supported by a given dataset.
 
 Fitting an empirical model requires determining the values of its parameters, e.g., for the Arrhenius model, the activation energy $\Ea$ and pre-exponential factor $A$.
-Because the underlying data have scatter or associated uncertainties, we need not only best-fit parameter values but also the associated inverse uncertainties, the uncertainties in the fitted parameters inferred from the data.
+Because the underlying data have scatter or associated uncertainties, we need not only best-fit parameter values but also estimates of how uncertain those fitted parameters are.\footnote{These are sometimes called ``inverse uncertainties'' because they are inferred inversely from the uncertainties in the data.}
 
 Once a model has been fitted, a common use is to extrapolate to temperatures outside the measured range; for example, to predict room-temperature conductivity from high-temperature simulation data~\cite{Yeandel2019,Goldmann2025}.
-Such extrapolations assume the model remains valid in the new regime, and for the extrapolated estimates to be meaningful, the inverse uncertainties in the fitted parameters must be propagated correctly into the predicted values. 
+Such extrapolations assume the model remains valid in the new regime, and for the extrapolated estimates to be meaningful, the uncertainties in the fitted parameters must be propagated correctly into the predicted values. 
 
 The challenges outlined above---obtaining fitted parameters with meaningful uncertainties, assessing which model is best supported by the data, and quantifying confidence in extrapolations---are non-trivial and often not addressed by standard fitting approaches. Bayesian methods provide a rigorous framework for addressing all three: they yield full probability distributions for fitted parameters, enable rational comparison of competing models, and allow uncertainty propagation into extrapolated predictions.
 
