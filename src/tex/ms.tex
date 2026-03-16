@@ -128,9 +128,8 @@ A model with more free parameters can fit a wider range of possible behaviours.
 If such a model fits the data, this is less informative than if a simpler, more constrained model fits equally well. 
 The simpler model has made a more specific prediction that happened to be confirmed. 
 When two models fit the data comparably, preferring the simpler model is not mere parsimony; it reflects the fact that the simpler model has been more strongly tested.
-What we need is a framework that balances fit quality against model complexity. 
-Simple tools, such as the Akaike and Bayesian information criteria, exist~\cite{Akaike1974, Schwarz1978}, but they are based on assumptions, such as that the model parameters follow a normal distribution.
-Whereas, Bayesian model selection provides a robust approach to rationally compare different analytical models, and we discuss this in Section~\ref{sec:model}.
+What we need is a framework that balances fit quality against model complexity.\footnote{Information criteria such as AIC and BIC address this problem~\cite{Akaike1974, Schwarz1978}, but rely on assumptions such as normally distributed parameters that may not hold in practice.}
+Bayesian model selection provides a robust approach to rationally comparing different analytical models, and we discuss this in Section~\ref{sec:model}.
 
 \subsection{Parameter Estimation}
 
