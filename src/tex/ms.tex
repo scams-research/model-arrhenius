@@ -285,7 +285,6 @@ where $A$ is the pre-exponential factor, $B$ is related to the activation energy
 The Arrhenius equation is a special case of VTF with $T_0 = 0$, so the VTF model will always fit the data at least as well as Arrhenius, because it has an additional parameter to adjust. 
 The question is whether that additional parameter is justified by the data.
 
-Given a dataset, how do we decide whether the additional parameter in the VTF model is justified by the data, or whether the simpler Arrhenius model is sufficient?
 The Bayesian approach is to ask which model is more probable given the data; that is, compute $\pr{\mathrm{model}}{\bm{x}}$, or in more compact notation, $\pr{m}{\bm{x}}$. 
 Applying Bayes' theorem at the level of models rather than parameters:
 \begin{equation}
@@ -347,7 +346,7 @@ At this simulation length, we have no evidential basis for preferring the more c
 Panels (c) and (d) show the same comparison using \qty{140}{\pico\second} of diffusive-regime data. 
 The conductivity data appear similar, but the uncertainties are much smaller. 
 With tighter error bars, the deviation from linearity becomes more clearly resolved. 
-The Bayes factor increases to $\ln(B_{\beta\alpha}) =\,\variable{output/bayes_140.txt}$, well above the threshold of \num{5}, and strong evidence for the more complex VTF model over the simpler Arrhenius alternative.
+The Bayes factor increases to $\ln(B_{\beta\alpha}) =\,\variable{output/bayes_140.txt}$, well above the threshold of \num{5}, providing strong evidence for the more complex VTF model over the simpler Arrhenius alternative.
 
 Panel (e) shows how the Bayes factor evolves with simulation length. 
 As the data become more precise, the evidence for non-Arrhenius behaviour grows.
