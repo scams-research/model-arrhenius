@@ -66,7 +66,7 @@ These coefficients can be measured experimentally, for example, using impedance 
 
 Transport coefficients are typically temperature dependent, with this temperature dependence commonly described by fitting empirical models to the measured data. 
 Fitting offers a variety of benefits over presenting raw data alone.
-These benefits may be qualitative, such as the interpolation of a smooth, fitted curve to reveal trends obscured in raw data, or quantitative, such as allowing the transport coefficient to be predicted outside the measured regime, or providing fitted parameters (e.g., activation energies) that can be used to compare different materials.
+These benefits may be qualitative, such as interpolating a smooth curve to reveal trends obscured in raw data; or quantitative, such as predicting transport coefficients outside the measured regime, or providing fitted parameters (e.g., activation energies) that can be used to compare different materials.
 Fitted parameters may also connect to microscopic models of transport---for example, in solid ion-conductors, the activation energy is often interpreted as an approximation of the microscopic energy barrier for ion hopping~\cite{Canepa2022, Wang2021}.
 
 The most widely used empirical model for describing the temperature dependence of transport coefficients is the Arrhenius model. 
@@ -106,7 +106,7 @@ Because the underlying data have scatter or associated uncertainties, we need no
 Once a model has been fitted, a common use is to extrapolate to temperatures outside the measured range; for example, to predict room-temperature conductivity from high-temperature simulation data~\cite{Yeandel2019,Goldmann2025}.
 Such extrapolations assume the model remains valid in the new regime, and for the extrapolated estimates to be meaningful, the uncertainties in the fitted parameters must be propagated correctly into the predicted values. 
 
-The challenges outlined above---obtaining fitted parameters with meaningful uncertainties, assessing which model is best supported by the data, and quantifying confidence in extrapolations---are non-trivial and often not addressed by standard fitting approaches. Bayesian methods provide a rigorous framework for addressing all three: they yield full probability distributions for fitted parameters, enable rational comparison of competing models, and allow uncertainty propagation into extrapolated predictions.
+The challenges outlined above---obtaining fitted parameters with meaningful uncertainties, assessing which model is best supported by the data, and quantifying uncertainty in extrapolations---are non-trivial and often not addressed by standard fitting approaches. Bayesian methods provide a rigorous framework for addressing all three: they yield full probability distributions for fitted parameters, enable rational comparison of competing models, and allow uncertainty propagation into extrapolated predictions.
 
 This tutorial details how to apply Bayesian methods to the analysis of temperature-dependent transport data. 
 Our examples focus on conductivity estimates from molecular dynamics simulations of superionic materials, but the methodology is generally applicable wherever transport measurements have accurate uncertainty estimates. 
@@ -380,7 +380,7 @@ To extrapolate, we simply evaluate the model at the new temperature for each sam
 The resulting collection of conductivity values represents the distribution of model predictions at that temperature; i.e., the range of conductivities compatible with our original data~\footnote{This extrapolated distribution captures parameter uncertainty but not estimated measurement noise. For extrapolation far from the measured range, parameter uncertainty typically dominates, so this distinction is rarely important in practice.}.
 
 We demonstrate this using the LLZO posterior from Section~\ref{sec:parameter_estimation}. Having sampled the joint distribution of $E_\mathrm{a}$ and $A$ at temperatures between \qty{500}{\kelvin} and \qty{800}{\kelvin}, we now extrapolate to \qty{300}{\kelvin}, well outside the original measurement range.
-For each posterior sample, we calculate $\sigma(\qty{300}{\kelvin})$ using the Arrhenius equation. The collection of these values gives us the distribution of predicted conductivities at room temperature.
+For each posterior sample, we calculate $\sigma(\qty{300}{\kelvin})$ using the Arrhenius equation. These predicted values form a distribution of conductivities at room temperature.
 
 Fig.~\ref{fig:extrapolate} shows the result. 
 The posterior distribution, shown as shaded bands in the main panel, widens substantially as we extrapolate to lower temperatures. 
