@@ -256,7 +256,7 @@ This illustrates one advantage of Bayesian posterior sampling: we obtain the ful
     % \vspace{-1.5\baselineskip}
 \end{figure}
 
-Arrhenius models are often fitted by taking logarithms and using linear regression in the transformed space, plotting $\ln(\sigma T)$ versus $1/T$ and fitting a straight line. 
+Arrhenius models are often fitted by taking logarithms and fitting a straight line to $\ln(\sigma T)$ versus $1/T$.
 This approach is convenient, but introduces bias: if the errors in $\sigma T$ are normally distributed, transforming to log space makes them log-normally distributed, violating the assumptions of linear regression and yielding biased estimates for $\Ea$ and $A$~\cite{McCluskey2023a}. 
 Our choice of a multivariate normal likelihood above also assumes normally distributed errors, so we must work with the untransformed data to satisfy this assumption.
 
