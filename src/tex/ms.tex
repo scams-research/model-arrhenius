@@ -202,9 +202,7 @@ Together, these determine the likelihood function we use in Bayes' theorem.
 For a model with parameters $\bm{\theta}$, each choice of parameters predicts a conductivity value at each measured temperature; call these predictions $\bm{\mu}(\bm{\theta})$.
 We also have our observed conductivity values, $\bm{x}$, which will not exactly match the predictions because of uncertainties in the data.
 A standard approach is to assume that the observed values are normally distributed around the model predictions. 
-This assumption of normally distributed data is often reasonable on two grounds.
-First, the central limit theorem: if errors arise from many independent sources, their sum will tend toward a normal distribution.
-Second, the principle of maximum entropy: if we know only the mean and variance of our errors, the normal distribution assumes the least additional structure.
+This assumption is often reasonable: if errors arise from many independent sources, their combined effect will tend toward a normal distribution. More fundamentally, if all we know about our errors is their mean and variance, the normal distribution is the only distribution that requires no further assumptions.\footnote{This follows from the principle of maximum entropy~\cite{Jaynes_PhysRev1957}.}
 
 Under this assumption, our statistical model is a multivariate normal distribution, characterised by a covariance matrix $\bm{\Sigma}$ that describes the data uncertainties.
 The corresponding likelihood function is:
