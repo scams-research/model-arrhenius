@@ -108,7 +108,7 @@ Such extrapolations assume the model remains valid in the new regime, and for th
 
 The challenges outlined above---obtaining fitted parameters with meaningful uncertainties, assessing which model is best supported by the data, and quantifying uncertainty in extrapolations---are non-trivial and often not addressed by standard fitting approaches. Bayesian methods provide a rigorous framework for addressing all three: they yield full probability distributions for fitted parameters, enable rational comparison of competing models, and allow uncertainty propagation into extrapolated predictions.
 
-This tutorial details how to apply Bayesian methods to the analysis of temperature-dependent transport data. 
+This tutorial discusses the application of Bayesian methods to the analysis of temperature-dependent transport data. 
 Our examples focus on conductivity estimates from molecular dynamics simulations of superionic materials, but the methodology is generally applicable wherever transport measurements have accurate uncertainty estimates. 
 The methods outlined here are available in the open-source Python package \textsc{kinisi}~\cite{McCluskey2024}.
 
@@ -223,8 +223,8 @@ Combinations that fit the data well and satisfy the prior receive high probabili
 After sufficient exploration, the collected samples represent the posterior distribution. 
 From these samples, we can extract summary statistics (e.g., means, medians, credible intervals) or visualise the full distribution to understand correlations between parameters.
 
-As an example of this procedure, we analyse lithium-ion conductivity data from molecular dynamics simulations of the cubic phase of lithium lanthanum zirconium oxide (c-LLZO), a solid electrolyte of interest for solid-state batteries (see Methods for simulation details).
-At each of four temperatures (\qtylist{500; 600; 700; 800}{\kelvin}), we used approximate Bayesian regression of the MSD against time~\cite{McCluskey2024a} to obtain a conductivity estimate with associated uncertainty.
+To illustrate this procedure, we use conductivity data from molecular dynamics simulations of a lithium-ion conductor, c-LLZO (see Methods for simulation details).
+The data comprise conductivity estimates at four temperatures, each with an associated uncertainty (see Methods for analysis details).
 To sample the posterior, we need to specify priors for $E_\mathrm{a}$ and $A$. 
 Since we have no strong prior knowledge, we use broad uniform distributions that comfortably span the range of physically plausible values. 
 With the likelihood and priors defined, we can run the sampler. 
@@ -315,8 +315,7 @@ Markov chain Monte Carlo, which we used in Section~\ref{sec:parameter_estimation
 Nested sampling is an alternative algorithm designed specifically for this purpose: it efficiently estimates the marginal likelihood while also providing posterior samples as a by-product. 
 We do not detail the algorithm here, but point the reader to Sivia and Skilling for a pedagogical description~\cite{Sivia2006}.
 
-As an example of Bayesian model selection, we compare the Arrhenius and VTF models using silver-ion conductivity data from molecular dynamics simulations of \ce{AgCrSe2}~\cite{Wang2021}, a material previously reported to exhibit non-Arrhenius behaviour. 
-The data span a range of temperatures and show apparent curvature in the Arrhenius plot; but do the data support a non-Arrhenius model, or is the simpler Arrhenius model sufficient?
+As a practical illustration, we examine silver-ion conductivity data from molecular dynamics simulations of \ce{AgCrSe2}~\cite{Wang2021}, and compare the Arrhenius and VTF models as candidate descriptions of the temperature dependence.
 
 We compute the Bayes factor comparing the VTF model ($\beta$) to the Arrhenius model ($\alpha$), assuming equal prior probabilities for each. 
 \cref{fig:agcrse2} shows the results for two different simulation lengths.
@@ -369,7 +368,7 @@ Each sample represents a plausible ($\Ea$, $A$) combination given the data.
 To extrapolate, we simply evaluate the model at the new temperature for each sample. 
 The resulting collection of conductivity values represents the distribution of model predictions at that temperature; i.e., the range of conductivities compatible with our original data~\footnote{This extrapolated distribution captures parameter uncertainty but not estimated measurement noise. For extrapolation far from the measured range, parameter uncertainty typically dominates, so this distinction is rarely important in practice.}.
 
-We demonstrate this using the LLZO posterior from Section~\ref{sec:parameter_estimation}. Having sampled the joint distribution of $E_\mathrm{a}$ and $A$ at temperatures between \qty{500}{\kelvin} and \qty{800}{\kelvin}, we now extrapolate to \qty{300}{\kelvin}, well outside the original measurement range.
+Returning to the LLZO example from Section~\ref{sec:parameter_estimation}, we now extrapolate from the measured temperature range (\qtyrange{500}{800}{\kelvin}) to \qty{300}{\kelvin}, well outside the original data.
 For each posterior sample, we calculate $\sigma(\qty{300}{\kelvin})$ using the Arrhenius equation.
 These predicted values form a distribution of conductivities at room temperature.
 
@@ -426,44 +425,34 @@ This work has benefitted from the input of all members of the \textsc{kinisi} de
 \section*{Methods}
 \label{sec:meth}
 
-All conductivity data used in this work were derived from mean-squared displacement (MSD) analysis of molecular dynamics trajectories. 
-Self-diffusion coefficients were estimated from the long-time slope of the MSD via the Einstein relation, using approximate Bayesian regression~\cite{McCluskey2024a}. 
-MSDs exhibit ballistic behaviour at short times and diffusive behaviour at longer times~\cite{He2018,Bonkowski2025}; only data from the diffusive regime, where the MSD is approximately linear in time, can be used for this fitting. 
-Self-diffusion coefficients were converted to illustrative conductivity estimates via the Nernst-Einstein relation, assuming a Haven ratio $H_\mathrm{R} = 1$.
-A temperature-independent Haven ratio would uniformly scale the conductivity values without affecting the temperature dependence or the analysis.
-A temperature-dependent Haven ratio would introduce additional curvature, potentially shifting the model comparison towards the VTF model, but the analysis procedure would be unchanged.
-All of the analysis in this work was performed with \textsc{kinisi}-2.0.3~\cite{McCluskey2024}. 
-Analysis scripts are available in the Electronic Supplementary Information~\cite{McCluskey2025}. 
+All conductivity data used in this work were derived from molecular dynamics simulations.
+At each temperature, self-diffusion coefficients were estimated from the long-time slope of the mean-squared displacement (MSD) using approximate Bayesian regression~\cite{McCluskey2024a}, considering only the diffusive regime identified by visual inspection of log-log MSD plots. The range of lag times used for this regression is the fitting window.
+These were converted to conductivity estimates via the Nernst-Einstein relation, assuming a Haven ratio $H_\mathrm{R} = 1$.\footnote{A temperature-independent Haven ratio would uniformly scale the conductivity values without affecting the temperature dependence; a temperature-dependent ratio would introduce additional curvature, but the analysis procedure would be unchanged.}
+All analysis was performed with \textsc{kinisi}-2.0.3~\cite{McCluskey2024}, using \textsc{MDAnalysis}~\cite{MichaudAgrawal2011,Gowers2016} for trajectory parsing; scripts are available in the Electronic Supplementary Information~\cite{McCluskey2025}.
 
-For \ce{Li7La3Zr2O12} (LLZO), classical molecular dynamics simulations were run using the \textsc{metalwalls} code~\cite{MarinLaflche2020}. 
-The DIPPIM polarisable ion force field was used as parameterised by Burbano \emph{et al.}~\cite{Burbano2016}. 
+For \ce{Li7La3Zr2O12} (LLZO), classical molecular dynamics simulations were run using the \textsc{metalwalls} code~\cite{MarinLaflche2020}.
+These simulations used the DIPPIM polarisable ion force field, as parameterised by Burbano \emph{et al.}~\cite{Burbano2016}.
 The cubic phase of LLZO was simulated in the \emph{NVT} ensemble at temperatures of \qtylist{500;600;700;800}{\kelvin}.
 Simulations were run for \qty{50}{\pico\second} using a \qty{0.5}{\femto\second} timestep and a Nosé-Hoover thermostat with a relaxation time of \qty{121}{\femto\second}~\cite{Nos1984, Hoover1985, Martyna1992}. 
 The simulations used $2 \times 2 \times 2$ supercells with \num{1536} atoms, following the same protocol as in Ref.~\onlinecite{Burbano2016}.
 The simulation data are available under a CC BY 4.0 license on Zenodo~\cite{Coles2025}.
+Mean-squared displacements of the lithium ions were computed at lag times from \qty{0.5}{\femto\second} to \qty{50}{\pico\second} in intervals of \qty{2.5}{\femto\second}, with the start of the fitting window at \qty{10}{\pico\second}.
 
-The LLZO simulation trajectories were loaded into \textsc{kinisi} using the \textsc{MDAnalysis} package~\cite{MichaudAgrawal2011,Gowers2016}. 
-Mean-squared displacements of the lithium ions were computed at lag times from \qty{0.5}{\femto\second} to \qty{50}{\pico\second} in intervals of \qty{2.5}{\femto\second}. 
-Self-diffusion coefficients were estimated with the start of the fitting window at \qty{10}{\pico\second}.
-
-The LLZO conductivity data were modelled using the Arrhenius equation, using Markov chain Monte Carlo sampling.
+The LLZO conductivity data were fitted to the Arrhenius equation using Markov chain Monte Carlo sampling.
 Parameter priors were uniform: $p(E_\mathrm{a}) \sim \mathcal{U}({0},\qty{0.5}{\electronvolt})$ and $p(A) \sim \mathcal{U}(\num{e5},\qty{e7}{\centi\meter\squared\per\second})$.
 The posterior distribution was sampled using \num{32} walkers, generating \num{10000} samples after a burn-in period of \num{500} samples.
 Samples were thinned by a factor of \num{10} to reduce autocorrelation. 
 For extrapolation, posterior samples were used to estimate conductivity at $T=\qty{300}{\kelvin}$.
 
-For \ce{AgCrSe2}, simulation trajectories were provided by the authors of Ref.~\onlinecite{Wang2021} as lammpstrj files. 
+For \ce{AgCrSe2}, simulation trajectories were provided by the authors of Ref.~\onlinecite{Wang2021}.
 These simulations covered temperatures of \SIlist{300;350;400;500;600;700}{\kelvin}; full details are given in the original publication. 
 The trajectories are available on Zenodo~\cite{Wang2025}.
-\ce{AgCrSe2} simulation trajectories were loaded into \textsc{kinisi} using the \textsc{MDAnalysis} package~\cite{MichaudAgrawal2011,Gowers2016} and mean-squared displacements computed at each temperature.
 
-To investigate how the Bayes factor depends on data quality, we compared analyses using different fitting window lengths (from \qty{40}{\pico\second} to \qty{140}{\pico\second}, as shown in \cref{fig:agcrse2}e). 
-The fitting window is the range of lag times used in the regression, starting from the onset of diffusive behaviour, $\Delta t_\mathrm{min}$.
-The onset of diffusive behaviour was identified by visual inspection of log-log MSD plots, selecting the region where the MSD is linear in time.
-The start of the diffusive regime is temperature-dependent (\cref{tab:lengths}), so for a given fitting window length, the total trajectory length analysed varies with temperature.
-Mean-squared displacements were computed at lag times from $\Delta t_\mathrm{min}$ to $\Delta t_\mathrm{min}$ plus the fitting window length, in increments of $\Delta(\Delta t)$ (\cref{tab:lengths}).
+To investigate how the Bayes factor depends on data quality, we varied the fitting window length from \qty{40}{\pico\second} to \qty{140}{\pico\second} (\cref{fig:agcrse2}e).
+The start of the fitting window, $\Delta t_\mathrm{min}$, is temperature-dependent (\cref{tab:lengths}), so for a given fitting window length, the total trajectory length analysed varies with temperature.
+At each temperature, MSDs were computed at lag times from $\Delta t_\mathrm{min}$ to $\Delta t_\mathrm{min}$ plus the fitting window length, in increments of $\Delta(\Delta t)$ (\cref{tab:lengths}).
 
-Bayesian model selection was performed using nested sampling~\cite{Skilling2004} as implemented in the \textsc{dynesty} Python package~\cite{Speagle2020}, using \num{500} live points and a stopping criterion of \num{0.01}.
+Bayesian model selection was performed using nested sampling~\cite{Skilling2004} as implemented in the \textsc{dynesty} Python package~\cite{Speagle2020}, with \num{500} live points and a stopping criterion of \num{0.01}.
 For the Arrhenius model, the parameter priors were: $p(E_\mathrm{a}) \sim \mathcal{U}(0, \qty{1}{\electronvolt})$ and $p(A) \sim \mathcal{U}(\num{e4}, \qty{e8}{\centi\meter\squared\per\second})$.
 For the VTF model: $p(B) \sim \mathcal{U}(0, \qty{1}{\electronvolt})$, $p(A) \sim \mathcal{U}(\num{e4}, \qty{e8}{\centi\meter\squared\per\second})$, and $p(T_0) \sim \mathcal{U}(0, \qty{300}{\kelvin})$.
 
