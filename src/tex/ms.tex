@@ -223,8 +223,8 @@ Combinations that fit the data well and satisfy the prior receive high probabili
 After sufficient exploration, the collected samples represent the posterior distribution. 
 From these samples, we can extract summary statistics (e.g., means, medians, credible intervals) or visualise the full distribution to understand correlations between parameters.
 
-As an example of this procedure, we analyse lithium-ion conductivity data from molecular dynamics simulations of the cubic phase of lithium lanthanum zirconium oxide (c-LLZO), a solid electrolyte of interest for solid-state batteries (see Appendix for the simulation details). 
-The data come from simulations at four temperatures (\qtylist{500; 600; 700; 800}{\kelvin}), giving us four conductivity estimates with associated uncertainties obtained via an approximate Bayesian regression scheme~\cite{McCluskey2024a}.
+As an example of this procedure, we analyse lithium-ion conductivity data from molecular dynamics simulations of the cubic phase of lithium lanthanum zirconium oxide (c-LLZO), a solid electrolyte of interest for solid-state batteries (see Methods for simulation details).
+At each of four temperatures (\qtylist{500; 600; 700; 800}{\kelvin}), we used approximate Bayesian regression of the MSD against time~\cite{McCluskey2024a} to obtain a conductivity estimate with associated uncertainty.
 To sample the posterior, we need to specify priors for $E_\mathrm{a}$ and $A$. 
 Since we have no strong prior knowledge, we use broad uniform distributions that comfortably span the range of physically plausible values. 
 With the likelihood and priors defined, we can run the sampler. 
@@ -430,6 +430,8 @@ All conductivity data used in this work were derived from mean-squared displacem
 Self-diffusion coefficients were estimated from the long-time slope of the MSD via the Einstein relation, using approximate Bayesian regression~\cite{McCluskey2024a}. 
 MSDs exhibit ballistic behaviour at short times and diffusive behaviour at longer times~\cite{He2018,Bonkowski2025}; only data from the diffusive regime, where the MSD is approximately linear in time, can be used for this fitting. 
 Self-diffusion coefficients were converted to illustrative conductivity estimates via the Nernst-Einstein relation, assuming a Haven ratio $H_\mathrm{R} = 1$.
+A temperature-independent Haven ratio would uniformly scale the conductivity values without affecting the temperature dependence or the analysis.
+A temperature-dependent Haven ratio would introduce additional curvature, potentially shifting the model comparison towards the VTF model, but the analysis procedure would be unchanged.
 All of the analysis in this work was performed with \textsc{kinisi}-2.0.3~\cite{McCluskey2024}. 
 Analysis scripts are available in the Electronic Supplementary Information~\cite{McCluskey2025}. 
 
@@ -457,6 +459,7 @@ The trajectories are available on Zenodo~\cite{Wang2025}.
 
 To investigate how the Bayes factor depends on data quality, we compared analyses using different fitting window lengths (from \qty{40}{\pico\second} to \qty{140}{\pico\second}, as shown in \cref{fig:agcrse2}e). 
 The fitting window is the range of lag times used in the regression, starting from the onset of diffusive behaviour, $\Delta t_\mathrm{min}$.
+The onset of diffusive behaviour was identified by visual inspection of log-log MSD plots, selecting the region where the MSD is linear in time.
 The start of the diffusive regime is temperature-dependent (\cref{tab:lengths}), so for a given fitting window length, the total trajectory length analysed varies with temperature.
 Mean-squared displacements were computed at lag times from $\Delta t_\mathrm{min}$ to $\Delta t_\mathrm{min}$ plus the fitting window length, in increments of $\Delta(\Delta t)$ (\cref{tab:lengths}).
 
@@ -466,7 +469,7 @@ For the VTF model: $p(B) \sim \mathcal{U}(0, \qty{1}{\electronvolt})$, $p(A) \si
 
 \begin{table}
     \centering
-    \caption{MSD analysis parameters for \ce{AgCrSe2}. $\Delta t_\mathrm{min}$: onset of diffusive regime, marking the beginning of the fitting window. $\Delta(\Delta t)$: spacing between successive lag times in the MSD computation.}
+    \caption{MSD fitting parameters for \ce{AgCrSe2} at each simulation temperature. $\Delta t_\mathrm{min}$ is the minimum lag time used for fitting, corresponding to the onset of the diffusive regime. $\Delta(\Delta t)$ is the spacing between successive lag times in the MSD regression.}
     \label{tab:lengths}
     \setlength{\tabcolsep}{1em}
     \begin{tabular}{ccc}
