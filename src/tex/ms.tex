@@ -101,7 +101,7 @@ In these cases, alternative models---such as the Vogel-Tammann-Fulcher equation~
 However, it is not always clear whether observed deviations indicate genuine non-Arrhenius behaviour or simply reflect noise in the data, raising the question of how to determine which model is best supported by a given dataset.
 
 Fitting an empirical model requires determining the values of its parameters, e.g., for the Arrhenius model, the activation energy $\Ea$ and pre-exponential factor $A$.
-Because the underlying data have scatter or associated uncertainties, we need not only best-fit parameter values but also estimates of how uncertain those fitted parameters are.\footnote{These are sometimes called ``inverse uncertainties'' because they are inferred inversely from the uncertainties in the data.}
+Because the underlying data have scatter or associated uncertainties, we need not only best-fit parameter values but also estimates of how uncertain those fitted parameters are; these are sometimes called ``inverse uncertainties'', because they are inferred from the uncertainties in the data.
 
 Once a model has been fitted, a common use is to extrapolate to temperatures outside the measured range; for example, to predict room-temperature conductivity from high-temperature simulation data~\cite{Yeandel2019,Goldmann2025}.
 Such extrapolations assume the model remains valid in the new regime, and for the extrapolated estimates to be meaningful, the uncertainties in the fitted parameters must be propagated correctly into the predicted values. 
@@ -152,7 +152,7 @@ Bayesian posterior sampling makes uncertainty propagation straightforward: the s
 \section{Parameter Estimation}
 \label{sec:parameter_estimation}
 
-Although model selection is conceptually prior---we need to choose a model before fitting it---in practice, we must understand how to fit a single model before we can compare models.
+Although model selection conceptually precedes fitting---we need to choose a model before fitting it---in practice, we must understand how to fit a single model before we can compare models.
 We therefore begin with parameter estimation.
 For illustration, we assume an Arrhenius model, and demonstrate how Bayesian posterior sampling yields parameter estimates with meaningful uncertainties.
 The approach is general, however, and applies to any parametric model.
@@ -377,7 +377,8 @@ To extrapolate, we simply evaluate the model at the new temperature for each sam
 The resulting collection of conductivity values represents the distribution of model predictions at that temperature; i.e., the range of conductivities compatible with our original data~\footnote{This extrapolated distribution captures parameter uncertainty but not estimated measurement noise. For extrapolation far from the measured range, parameter uncertainty typically dominates, so this distinction is rarely important in practice.}.
 
 We demonstrate this using the LLZO posterior from Section~\ref{sec:parameter_estimation}. Having sampled the joint distribution of $E_\mathrm{a}$ and $A$ at temperatures between \qty{500}{\kelvin} and \qty{800}{\kelvin}, we now extrapolate to \qty{300}{\kelvin}, well outside the original measurement range.
-For each posterior sample, we calculate $\sigma(\qty{300}{\kelvin})$ using the Arrhenius equation. These predicted values form a distribution of conductivities at room temperature.
+For each posterior sample, we calculate $\sigma(\qty{300}{\kelvin})$ using the Arrhenius equation.
+These predicted values form a distribution of conductivities at room temperature.
 
 Fig.~\ref{fig:extrapolate} shows the result. 
 The posterior distribution, shown as shaded bands in the main panel, widens substantially as we extrapolate to lower temperatures. 
@@ -410,7 +411,7 @@ Combined with parameter estimation (Section~\ref{sec:parameter_estimation}) and 
 \label{sec:conc}
 
 This tutorial has introduced Bayesian methods for analysing temperature-dependent transport data, addressing three common challenges: estimating model parameters with meaningful uncertainties, selecting between competing models, and extrapolating predictions to unmeasured temperatures.
-Although our examples focus on transport data, the same framework applies to any temperature-dependent measurements with associated uncertainties---for example, reaction rates, mechanical properties, or any data fitted to Arrhenius-type models.
+Although our examples focus on transport data, the same framework applies to any temperature-dependent measurements with associated uncertainties, such as reaction rates, mechanical properties, or any data fitted to Arrhenius-type models.
 For parameter estimation, Bayesian posterior sampling returns the full distribution of parameter values compatible with the data—capturing asymmetries and correlations that point estimates with symmetric error bars would miss. For model selection, Bayes factors provide a rational basis for choosing between models of different complexity. For extrapolation, the same posterior samples enable straightforward uncertainty propagation, revealing how much (or how little) the data constrain predictions outside the measured range.
 The methods described here are implemented in the open-source Python package kinisi~\cite{McCluskey2024}, which we hope will make Bayesian analysis of transport data more broadly accessible.
 
