@@ -400,7 +400,10 @@ Bayesian methods cannot verify this assumption; they can only tell us what to ex
 \label{sec:conc}
 
 This tutorial has introduced Bayesian methods for analysing temperature-dependent transport data, addressing three common challenges: estimating model parameters with meaningful uncertainties, selecting between competing models, and extrapolating predictions to unmeasured temperatures.
-For parameter estimation, Bayesian posterior sampling returns the full distribution of parameter values compatible with the data---capturing asymmetries and correlations that point estimates with symmetric error bars would miss. The approach requires only a model equation and appropriate priors, and applies to any parametric model. For model selection, Bayes factors provide a rational basis for choosing between models of different complexity. For extrapolation, the same posterior samples enable straightforward uncertainty propagation, revealing how much (or how little) the data constrain predictions outside the measured range.
+For parameter estimation, Bayesian posterior sampling returns the full distribution of parameter values compatible with the data, capturing asymmetries and correlations that point estimates with symmetric error bars would miss.
+The approach requires only a model equation and appropriate priors, and applies to any parametric model.
+For model selection, Bayes factors provide a rational basis for choosing between models of different complexity.
+For extrapolation, the same posterior samples enable straightforward uncertainty propagation, revealing how much (or how little) the data constrain predictions outside the measured range.
 The examples in this tutorial have focused on transport data from molecular dynamics simulations, but the same framework applies to any temperature-dependent measurements with associated uncertainties, such as reaction rates, mechanical properties, or any data fitted to Arrhenius-type models.
 The methods described here are implemented in the open-source Python package kinisi~\cite{McCluskey2024}, which we hope will make Bayesian analysis of transport data more broadly accessible.
 
