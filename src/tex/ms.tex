@@ -63,7 +63,7 @@ This tutorial introduces the use of Bayesian methods for analysing temperature-d
 
 Transport coefficients, such as the self-diffusion coefficient $D^*$ and ionic conductivity $\sigma$, are critical parameters for characterising the performance of technologies such as batteries, fuel cells, and memristors.
 These coefficients are typically temperature dependent, with this temperature dependence commonly described by fitting empirical models to the measured data.
-Fitting offers a variety of benefits over presenting raw data alone.
+Fitting offers several benefits over presenting raw data alone.
 These benefits may be qualitative, such as interpolating a smooth curve to reveal trends obscured in raw data; or quantitative, such as predicting transport coefficients outside the measured regime, or providing fitted parameters (e.g., activation energies) that can be used to compare different materials.
 Fitted parameters may also connect to microscopic models of transport---for example, in solid ion-conductors, the activation energy is often interpreted as an approximation of the microscopic energy barrier for ion hopping~\cite{Canepa2022, Wang2021}.
 
@@ -104,7 +104,7 @@ Because the underlying data have scatter or associated uncertainties, we need no
 Once a model has been fitted, a common use is to extrapolate to temperatures outside the measured range; for example, to predict room-temperature conductivity from high-temperature simulation data~\cite{Yeandel2019,Goldmann2025}.
 Such extrapolations assume the model remains valid in the new regime, and for the extrapolated estimates to be meaningful, the uncertainties in the fitted parameters must be propagated correctly into the predicted values. 
 
-The challenges outlined above---obtaining fitted parameters with meaningful uncertainties, assessing which model is best supported by the data, and quantifying uncertainty in extrapolations---are non-trivial and often not addressed by standard fitting approaches. Bayesian methods provide a rigorous framework for addressing all three: they yield full probability distributions for fitted parameters, enable rational comparison of competing models, and allow uncertainty propagation into extrapolated predictions.
+These challenges---obtaining fitted parameters with meaningful uncertainties, assessing which model is best supported by the data, and quantifying uncertainty in extrapolations---are non-trivial and often not addressed by standard fitting approaches. Bayesian methods provide a rigorous framework for addressing all three: they yield full probability distributions for fitted parameters, enable rational comparison of competing models, and allow uncertainty propagation into extrapolated predictions.
 
 This tutorial discusses the application of Bayesian methods to the analysis of temperature-dependent transport data. 
 Our examples focus on conductivity estimates from molecular dynamics simulations of superionic materials, but the methodology is generally applicable wherever transport measurements have accurate uncertainty estimates. 
@@ -127,7 +127,7 @@ If such a model fits the data, this is less informative than if a simpler, more 
 The simpler model has made a more specific prediction that happened to be confirmed. 
 When two models fit the data comparably, preferring the simpler model is not mere parsimony; it reflects the fact that the simpler model has been more strongly tested.
 What we need is a framework that balances fit quality against model complexity.\footnote{Information criteria such as AIC and BIC address this problem~\cite{Akaike1974, Schwarz1978}, but rely on assumptions such as normally distributed parameters that may not hold in practice.}
-Bayesian model selection provides a robust approach to rationally comparing different analytical models, and we discuss this in Section~\ref{sec:model}.
+Bayesian model selection provides us with a rational approach to comparing competing models, and we discuss this in Section~\ref{sec:model}.
 
 \subsection{Parameter Estimation}
 
@@ -136,8 +136,7 @@ But given noisy or uncertain data, there is not a single set of parameters that 
 Rather than seeking a single ``best fit'', we want a way to characterise the full set of parameter values that are compatible with our data.
 Standard fitting approaches return point estimates, perhaps with symmetric error bars that quantify spread around the best fit. 
 But this representation is incomplete; it doesn't capture the full range of models consistent with the data, nor any correlations or asymmetries in how parameters relate to one another.
-Bayesian posterior sampling provides a natural framework for this. 
-Rather than returning a single parameter estimate, it generates samples from the distribution of parameter values that are compatible with the observed data. 
+Rather than returning a single parameter estimate, Bayesian posterior sampling generates samples from the distribution of parameter values that are compatible with the observed data. 
 This posterior distribution fully characterises our uncertainty about the model parameters, as we discuss in Section~\ref{sec:parameter_estimation}.
 
 \subsection{Extrapolation}
@@ -155,7 +154,7 @@ We therefore begin with parameter estimation.
 For illustration, we assume an Arrhenius model, and demonstrate how Bayesian posterior sampling yields parameter estimates with meaningful uncertainties.
 The approach is general, however, and applies to any parametric model.
 
-As discussed in Section~\ref{sec:problems}, our goal is not to find a single ``best'' set of parameter values, but to characterise the full range of parameter values that are compatible with our data. 
+Here, our goal is not to find a single ``best'' set of parameter values, but to characterise the full range of parameter values that are compatible with our data. 
 For the Arrhenius model, this means finding all combinations of activation energy, $E_\mathrm{a}$, and pre-exponential factor, $A$, that could plausibly describe the observed temperature-dependent conductivity.
 
 Given a set of measured conductivities at different temperatures, how do we determine which parameter values are compatible with these data? 
@@ -413,7 +412,7 @@ B.J.M.: Conceptualization, Methodology, Software, Writing - review and editing.
 
 \section*{Acknowledgements}
 
-We would like to thank the original authors of the \ce{AgCrSe2} work for kindly providing simulation trajectories.
+We thank the authors of the \ce{AgCrSe2} work for providing simulation trajectories.
 This work used the Isambard 2 UK National Tier-2 HPC Service (http://gw4.ac.uk/isambard/) operated by GW4 and the UK Met Office and funded by EPSRC (EP/T022078/1). 
 The authors acknowledge the University of Bath's Research Computing Group for their support in running the LLZO molecular dynamics simulations. 
 S.W.C. and B.J.M. acknowledge the support of the Faraday Institution through the CATMAT Project (Grant FIRG016). 
