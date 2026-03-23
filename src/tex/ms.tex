@@ -258,17 +258,13 @@ Arrhenius models are often fitted by taking logarithms and fitting a straight li
 This approach is convenient, but introduces bias: if the errors in $\sigma T$ are normally distributed, transforming to log space makes them log-normally distributed, violating the assumptions of linear regression and yielding biased estimates for $\Ea$ and $A$~\cite{McCluskey2023a}. 
 Our choice of a multivariate normal likelihood above also assumes normally distributed errors, so we must work with the untransformed data to satisfy this assumption.
 
-While this section has discussed Bayesian parameter estimation using the example of the Arrhenius model, the approach generalises to other models; we need only specify the model equation and appropriate priors. 
-However, we have so far assumed that the Arrhenius model is the correct choice. 
-In the next section, we address how to compare models and select the one best supported by the data.
-
 
 \section{Model Selection}
 \label{sec:model}
 
 In Section~\ref{sec:parameter_estimation}, we assumed the data followed the Arrhenius model. 
 But how do we know this is the right choice? 
-As discussed in Section~\ref{sec:problems}, if we simply compare how well different models fit the data, a more complex model will generally fit better~\cite{Mayer2010}, even when the additional complexity is not justified. 
+If we simply compare how well different models fit the data, a more complex model will generally fit better~\cite{Mayer2010}, even when the additional complexity is not justified. 
 We need a rational approach that balances fit quality against model complexity.
 Bayesian model selection provides such a framework. 
 Rather than asking ``which model fits best?'', it asks ``which model is most probable given the data?''; and in answering this question, it naturally penalises unnecessary complexity.
@@ -361,8 +357,7 @@ More generally, this approach can be applied to any set of competing models; we 
 \label{sec:extrapolation}
 In Sections~\ref{sec:parameter_estimation} and \ref{sec:model}, we fitted models to data within the measured temperature range. 
 Often, however, we want to predict behaviour at temperatures outside this range: for example, estimating room-temperature conductivity from high-temperature simulations. 
-As discussed in Section~\ref{sec:problems}, such extrapolations are only meaningful if the uncertainties in the fitted parameters propagate into the predicted values.
-A single extrapolated number without an associated uncertainty cannot be compared to other values or assessed for reliability.
+For such extrapolations to be meaningful, the uncertainties in the fitted parameters must propagate into the predicted values---a single extrapolated number without an associated uncertainty cannot be compared to other values or assessed for reliability.
 
 Extrapolation amplifies parameter uncertainties. 
 The Arrhenius equation is exponential: small changes in the activation energy produce large changes in predicted conductivity, particularly at temperatures far from the fitted range. 
@@ -401,15 +396,11 @@ For extrapolation to be meaningful, the fitted model must remain valid at the ne
 If the transport mechanism changes, e.g., if a different diffusion pathway becomes dominant at lower temperatures, the extrapolation will be misleading regardless of how carefully we propagate uncertainty. 
 Bayesian methods cannot verify this assumption; they can only tell us what to expect if the model holds.
 
-This section has demonstrated how posterior samples enable straightforward extrapolation with uncertainty propagation. 
-The same samples used to characterise the fit are simply evaluated at new temperatures, giving a distribution of predictions that reflects our uncertainty. 
-Combined with parameter estimation (Section~\ref{sec:parameter_estimation}) and model selection (Section~\ref{sec:model}), this completes the Bayesian framework for analysing temperature-dependent transport data.
-
 \section{Conclusions}
 \label{sec:conc}
 
 This tutorial has introduced Bayesian methods for analysing temperature-dependent transport data, addressing three common challenges: estimating model parameters with meaningful uncertainties, selecting between competing models, and extrapolating predictions to unmeasured temperatures.
-For parameter estimation, Bayesian posterior sampling returns the full distribution of parameter values compatible with the data—capturing asymmetries and correlations that point estimates with symmetric error bars would miss. For model selection, Bayes factors provide a rational basis for choosing between models of different complexity. For extrapolation, the same posterior samples enable straightforward uncertainty propagation, revealing how much (or how little) the data constrain predictions outside the measured range.
+For parameter estimation, Bayesian posterior sampling returns the full distribution of parameter values compatible with the data---capturing asymmetries and correlations that point estimates with symmetric error bars would miss. The approach requires only a model equation and appropriate priors, and applies to any parametric model. For model selection, Bayes factors provide a rational basis for choosing between models of different complexity. For extrapolation, the same posterior samples enable straightforward uncertainty propagation, revealing how much (or how little) the data constrain predictions outside the measured range.
 The examples in this tutorial have focused on transport data from molecular dynamics simulations, but the same framework applies to any temperature-dependent measurements with associated uncertainties, such as reaction rates, mechanical properties, or any data fitted to Arrhenius-type models.
 The methods described here are implemented in the open-source Python package kinisi~\cite{McCluskey2024}, which we hope will make Bayesian analysis of transport data more broadly accessible.
 
