@@ -63,7 +63,7 @@ This tutorial introduces the use of Bayesian methods for analysing temperature-d
 
 Transport coefficients, such as the self-diffusion coefficient $D^*$ and ionic conductivity $\sigma$, are critical parameters for characterising the performance of technologies such as batteries, fuel cells, and memristors.
 These coefficients are typically temperature dependent, with this temperature dependence commonly described by fitting empirical models to the measured data.
-Fitting offers several benefits over presenting raw data alone: it allows us to interpolate a smooth curve to reveal trends obscured by noise, to predict transport coefficients outside the measured regime, or to extract fitted parameters, such as activation energies, that can be used to compare different materials or explain microscopic dynamics~\cite{Canepa2022, Wang2021}.
+Fitted models offer several benefits over raw data alone: they allow interpolation to reveal trends that otherwise would be obscured by noise, extrapolation of transport coefficients to outside the measured regime, and extraction of parameters, such as activation energies, that can be used to compare different materials or to explain microscopic dynamics~\cite{Canepa2022, Wang2021}.
 
 The most widely used empirical model for describing the temperature dependence of transport coefficients is the Arrhenius model. 
 For diffusion, this takes the form
@@ -192,7 +192,7 @@ Markov chain Monte Carlo (MCMC) is a widely used family of sampling algorithms.
 The details of how MCMC works are beyond the scope of this tutorial, but the essential idea is that it generates a sequence of parameter samples that, collectively, represent the posterior distribution. 
 From these samples, we can compute summary statistics (means, medians, credible intervals) or visualise the full distribution.
 
-To apply this framework, we first choose both a predictive model; for example, the Arrhenius equation; and a statistical model for the uncertainties in our data.
+To apply this framework, we first choose both a predictive model---for example, the Arrhenius equation---and a statistical model for the uncertainties in our data.
 Together, these determine the likelihood function we use in Bayes' theorem.
 For a model with parameters $\bm{\theta}$, each choice of parameters predicts a conductivity value at each measured temperature; call these predictions $\bm{\mu}(\bm{\theta})$.
 We also have our observed conductivity values, $\bm{x}$, which will not exactly match the predictions because of uncertainties in the data.
@@ -236,7 +236,7 @@ The activation energy is approximately normally distributed, with mean and \qty{
 The pre-exponential factor, however, is not normally distributed---it follows an approximately log-normal distribution. 
 For this parameter, we report the median and \qty{95}{\percent} credible interval: \variable{output/preexp_llzo.txt}.
 This illustrates one advantage of Bayesian posterior sampling: we obtain the full distribution of each parameter, rather than assuming normality.
- For $A$, reporting a symmetric interval around the mean would misrepresent our uncertainty.
+For $A$, reporting a symmetric interval around the mean would misrepresent our uncertainty.
 
 \begin{figure}
     % \vspace{-1.5\baselineskip}
@@ -429,7 +429,7 @@ For \ce{Li7La3Zr2O12} (LLZO), classical molecular dynamics simulations were run 
 These simulations used the DIPPIM polarisable ion force field, as parameterised by Burbano \emph{et al.}~\cite{Burbano2016}.
 The cubic phase of LLZO was simulated in the \emph{NVT} ensemble at temperatures of \qtylist{500;600;700;800}{\kelvin}.
 Simulations were run for \qty{50}{\pico\second} using a \qty{0.5}{\femto\second} timestep and a Nosé-Hoover thermostat with a relaxation time of \qty{121}{\femto\second}~\cite{Nos1984, Hoover1985, Martyna1992}. 
-The simulations used $2 \times 2 \times 2$ supercells with \num{1536} atoms, following the same protocol as in Ref.~\onlinecite{Burbano2016}.
+The simulations used $2 \times 2 \times 2$ supercells with \num{1536} atoms, following the protocol in Ref.~\onlinecite{Burbano2016}.
 The simulation data are available under a CC BY 4.0 license on Zenodo~\cite{Coles2025}.
 Mean-squared displacements of the lithium ions were computed at lag times from \qty{0.5}{\femto\second} to \qty{50}{\pico\second} in intervals of \qty{2.5}{\femto\second}, with the start of the fitting window at \qty{10}{\pico\second}.
 
