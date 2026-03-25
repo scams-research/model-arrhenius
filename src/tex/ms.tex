@@ -51,7 +51,7 @@
 \begin{abstract}
 Temperature-dependent transport data, including diffusion coefficients and ionic conductivities, are routinely analysed by fitting empirical models such as the Arrhenius equation. 
 These fitted models yield parameters such as the activation energy, and can be used to extrapolate to temperatures outside the measured range.
-Researchers frequently face challenges in this analysis: quantifying the uncertainty of fitted parameters, assessing whether the data quality is sufficient to support a particular empirical model, and using these models to predict behaviour at extrapolated temperatures. 
+Researchers frequently face challenges in this analysis: quantifying the uncertainty of fitted parameters, assessing whether the data quality is sufficient to support a particular empirical model, and using these models to predict behaviour at temperatures outside the measured range. 
 Bayesian methods offer a coherent framework that addresses all of these challenges. 
 This tutorial introduces the use of Bayesian methods for analysing temperature-dependent transport data, covering parameter estimation, model selection, and extrapolation with uncertainty propagation, with illustrative examples from molecular dynamics simulations of superionic materials.
 \end{abstract}
@@ -93,7 +93,7 @@ Both equations can be linearised by taking logarithms, and it is common to plot 
 While many systems show approximate Arrhenius behaviour, this is not universal. 
 For some systems, Arrhenius plots show pronounced curvature, corresponding to ``non-Arrhenius'' behaviour that is not well-modelled by the Arrhenius equation. 
 In these cases, alternative models---such as the Vogel-Tammann-Fulcher equation~\cite{Vogel1921, Fulcher1925, Tammann1926, deSouza2006, Wang2021}---may provide a better description. 
-However, it is not always clear whether observed deviations indicate genuine non-Arrhenius behaviour or simply reflect noise in the data, raising the question of how to determine which model is best supported by a given dataset.
+However, it is not always clear whether observed deviations indicate genuine non-Arrhenius behaviour or simply reflect noise in the data, raising the question of which model is best supported by the data.
 
 Fitting an empirical model requires determining the values of its parameters, e.g., for the Arrhenius model, the activation energy $\Ea$ and pre-exponential factor $A$.
 Because the underlying data have scatter or associated uncertainties, we need not only best-fit parameter values but also estimates of how uncertain those fitted parameters are; such estimates are sometimes called ``inverse uncertainties'', because they are inferred from the uncertainties in the data.
@@ -129,7 +129,7 @@ Bayesian model selection provides us with a rational approach to comparing compe
 \subsection{Parameter Estimation}
 
 To fit a model to data, we must determine its parameter values. 
-But given noisy or uncertain data, there is not a single set of parameters that is uniquely consistent with the observations---many different parameter combinations could plausibly describe the observed data. 
+But given noisy or uncertain data, no single set of parameters is uniquely consistent with the observations---many different parameter combinations could plausibly describe the observed data. 
 Rather than seeking a single ``best fit'', we want a way to characterise the full set of parameter values that are compatible with our data.
 Standard fitting approaches return point estimates, perhaps with symmetric error bars that quantify spread around the best fit. 
 But this representation is incomplete; it doesn't capture the full range of models consistent with the data, nor any correlations or asymmetries in how parameters relate to one another.
@@ -263,7 +263,7 @@ We need a rational approach that balances fit quality against model complexity.
 Bayesian model selection provides such a framework. 
 Rather than asking ``which model fits best?'', it asks ``which model is most probable given the data?''; and in answering this question, it naturally penalises unnecessary complexity.
 
-To illustrate model selection, we compare the Arrhenius equation with the Vogel-Tammann-Fulcher (VTF) equation\cite{Vogel1921, Tammann1926, Fulcher1925}, an alternative model that allows the activation energy to vary with temperature. 
+To illustrate model selection, we compare the Arrhenius equation with the Vogel-Tammann-Fulcher (VTF) equation~\cite{Vogel1921, Tammann1926, Fulcher1925}, an alternative model that allows the activation energy to vary with temperature. 
 The VTF equation has the form:
 \begin{equation}
     \sigma T = A\exp{\left[\frac{-B}{R(T-T_0)}\right]},
@@ -397,7 +397,7 @@ For parameter estimation, Bayesian posterior sampling returns the full distribut
 The approach requires only a model equation and appropriate priors, and applies to any parametric model.
 For model selection, Bayes factors provide a rational basis for choosing between models of different complexity.
 For extrapolation, the same posterior samples enable straightforward uncertainty propagation, revealing how much (or how little) the data constrain predictions outside the measured range.
-The examples in this tutorial have focused on transport data from molecular dynamics simulations, but the same framework applies to any temperature-dependent measurements with associated uncertainties, such as reaction rates, mechanical properties, or any data fitted to Arrhenius-type models.
+The examples in this tutorial have focused on transport data from molecular dynamics simulations, but the same framework applies to any temperature-dependent measurements with associated uncertainties, such as reaction rates or mechanical properties.
 The methods described here are implemented in the open-source Python package kinisi~\cite{McCluskey2024}, which we hope will make Bayesian analysis of transport data more broadly accessible.
 
 \section*{Author Contributions}
@@ -512,7 +512,7 @@ This repository includes a fully reproducible \textsc{showyourwork} workflow, wh
 \label{sec:llzo_plots}
 
 \cref{fig:llzo_sim} presents the mean-squared displacement data and resulting posterior distribution of linear models for a range of temperatures for LLZO. 
-The marginal posterior distribution for $\D$ is then used to find $\sigma$, which is included in the LLZO analysis in the main text (\cref{fig:arrhenius}, \cref{fig:llzo}, and \cref{fig:extrapolate}).
+The marginal posterior distribution for $\D$ is then used to find $\sigma$, which is included in the LLZO analysis in the main text (\cref{fig:llzo} and \cref{fig:extrapolate}).
 
 %
 \begin{figure*}
