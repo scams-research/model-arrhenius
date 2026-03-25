@@ -129,7 +129,7 @@ Bayesian model selection provides us with a rational approach to comparing compe
 \subsection{Parameter Estimation}
 
 To fit a model to data, we must determine its parameter values. 
-But given noisy or uncertain data, there is not a single set of parameters that is uniquely consistent with the observations—many different parameter combinations could plausibly describe the data we see. 
+But given noisy or uncertain data, there is not a single set of parameters that is uniquely consistent with the observations---many different parameter combinations could plausibly describe the observed data. 
 Rather than seeking a single ``best fit'', we want a way to characterise the full set of parameter values that are compatible with our data.
 Standard fitting approaches return point estimates, perhaps with symmetric error bars that quantify spread around the best fit. 
 But this representation is incomplete; it doesn't capture the full range of models consistent with the data, nor any correlations or asymmetries in how parameters relate to one another.
@@ -530,9 +530,8 @@ The marginal posterior distribution for $\D$ is then used to find $\sigma$, whic
 \section{Temperature dependence as a function of diffusive simulation time for \ce{AgCrSe2}}
 \label{sec:plots}
 
-Figs. \ref{fig:agcrse2_40} to \ref{fig:agcrse2_140} show the mean-squared displacement as a function of time interval for temperatures of \SIlist{300;350;400;500;600;700}{\kelvin}, where increasing total simulation lengths are used. 
-Increasing the total simulation length has the effect of increasing the amount of diffusive simulation that is available in the analysis. 
-As discussed in Sec.~\ref{sec:model}, this results in a large Bayesian evidence for the more complex VTF model.
+Figs.~\ref{fig:agcrse2_40} to \ref{fig:agcrse2_140} show the mean-squared displacement as a function of lag time for temperatures of \SIlist{300;350;400;500;600;700}{\kelvin}, for increasing total simulation lengths.
+Longer simulations provide more data in the diffusive regime, reducing the uncertainty in the conductivity estimates and, as discussed in Sec.~\ref{sec:model}, increasing the Bayesian evidence for the VTF model.
 
 %
 \begin{figure*}
