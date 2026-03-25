@@ -133,7 +133,7 @@ But given noisy or uncertain data, no single set of parameters is uniquely consi
 Rather than seeking a single ``best fit'', we want a way to characterise the full set of parameter values that are compatible with our data.
 Standard fitting approaches return point estimates, perhaps with symmetric error bars that quantify spread around the best fit. 
 But this representation is incomplete; it doesn't capture the full range of models consistent with the data, nor any correlations or asymmetries in how parameters relate to one another.
-Rather than returning a single parameter estimate, Bayesian posterior sampling generates samples from the distribution of parameter values that are compatible with the observed data. 
+Bayesian posterior sampling addresses this by generating samples from the distribution of parameter values compatible with the observed data. 
 This posterior distribution fully characterises our uncertainty about the model parameters, as we discuss in Section~\ref{sec:parameter_estimation}.
 
 \subsection{Extrapolation}
@@ -359,7 +359,7 @@ For each posterior sample, we calculate $\sigma(\qty{300}{\kelvin})$ using the A
 These predicted values form a distribution of conductivities at room temperature.
 
 Fig.~\ref{fig:extrapolate} shows the result. 
-The posterior distribution, shown as shaded bands in the main panel, widens substantially as we extrapolate to lower temperatures. 
+The shaded bands in the main panel show the distribution of extrapolated conductivities at each temperature, and widen substantially as we move further from the measured range. 
 The inset shows the distribution of predicted conductivity at \qty{300}{\kelvin}. 
 This distribution is broad and asymmetric, with a median and \qty{95}{\percent} credible interval of \variable{output/d_300.txt}.
 The breadth of this distribution illustrates why uncertainty propagation matters. 
@@ -389,7 +389,7 @@ The approach requires only a model equation and appropriate priors, and applies 
 For model selection, Bayes factors provide a rational basis for choosing between models of different complexity, based on the relative evidence provided by the data.
 For extrapolation, the same posterior samples enable straightforward uncertainty propagation, revealing how much (or how little) the data constrain predictions outside the measured range.
 The examples in this tutorial have focused on transport data from molecular dynamics simulations, but the same framework applies to any temperature-dependent measurements with associated uncertainties, such as reaction rates or mechanical properties.
-The methods described here are implemented in the open-source Python package kinisi~\cite{McCluskey2024}, which we hope will make Bayesian analysis of transport data more broadly accessible.
+The methods described here are implemented in the open-source Python package \textsc{kinisi}~\cite{McCluskey2024}, which we hope will make Bayesian analysis of transport data more broadly accessible.
 
 \section*{Author Contributions}
 
