@@ -348,10 +348,6 @@ In Sections~\ref{sec:parameter_estimation} and \ref{sec:model}, we fitted models
 Often, however, we want to predict behaviour at temperatures outside this range: for example, estimating room-temperature conductivity from high-temperature simulations. 
 For such extrapolations to be meaningful, the uncertainties in the fitted parameters must propagate into the predicted values---a single extrapolated number without an associated uncertainty cannot be compared to other values or assessed for reliability.
 
-Extrapolation amplifies parameter uncertainties. 
-The Arrhenius equation is exponential: small changes in the activation energy produce large changes in predicted conductivity, particularly at temperatures far from the fitted range. 
-If we report only a point estimate, e.g., using the ``best fit'' parameters to predict conductivity at a new temperature, we ignore this sensitivity and risk substantial overconfidence in the result.
-
 Bayesian posterior sampling makes uncertainty propagation straightforward. 
 In Section~\ref{sec:parameter_estimation}, we obtained samples from the joint posterior distribution of parameters. 
 Each sample represents a plausible ($\Ea$, $A$) combination given the data. 
@@ -368,7 +364,7 @@ The inset shows the distribution of predicted conductivity at \qty{300}{\kelvin}
 This distribution is broad and asymmetric, with a median and \qty{95}{\percent} credible interval of \variable{output/d_300.txt}.
 The breadth of this distribution illustrates why uncertainty propagation matters. 
 A point estimate at \qty{300}{\kelvin} would suggest a precise prediction; the full distribution reveals that the extrapolated conductivity spans nearly an order of magnitude. 
-This uncertainty is not a failure of the method; rather, it accurately reflects how much the data can tell us about behaviour at temperatures we did not measure.
+This uncertainty is not a failure of the method; it accurately reflects how much the data can tell us about behaviour at temperatures we did not measure.
 
 %
 \begin{figure}
@@ -381,9 +377,8 @@ This uncertainty is not a failure of the method; rather, it accurately reflects 
 \end{figure}
 %
 
-For extrapolation to be meaningful, the fitted model must remain valid at the new temperature. 
-If the transport mechanism changes, e.g., if a different diffusion pathway becomes dominant at lower temperatures, the extrapolation will be misleading regardless of how carefully we propagate uncertainty. 
-Bayesian methods cannot verify this assumption; they can only tell us what to expect if the model holds.
+A caveat: for extrapolation to be meaningful, the fitted model must remain valid at the new temperature.
+Bayesian methods, however, cannot verify this assumption; if the transport mechanism changes---for example, if a different diffusion pathway becomes dominant at lower temperatures---the extrapolation will be misleading regardless of how carefully we propagate uncertainty.
 
 \section{Conclusions}
 \label{sec:conc}
