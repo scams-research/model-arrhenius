@@ -44,11 +44,11 @@ for i, ax in enumerate(axes):
                         lw=0,
                         zorder=10)
     ax.set_xlabel(r"$\Delta t$ / ps")
-    ax.set_ylabel(r"$\langle\Delta\mathbf{r}_{\mathrm{c}}(t)^2_{\mathrm{Li}^+}\rangle$ / Å$^2$")
+    ax.set_ylabel(r"$\langle\Delta \mathbf{r}_{\mathrm{c}}(t)^2_{\mathrm{Li}^+}\rangle$ / Å$^2$")
     ax.set_xlim(0, None)
     ax.set_ylim(0, 35)
     ax.set_yticks([0, 10, 20, 30])
-    ax.text(1, 0.05, f'$T={temp[i]}$ K', horizontalalignment='right', verticalalignment='bottom', transform=ax.transAxes)
+    ax.set_title(f'({ALPHABET[i]}) $T = {temp[i]}$ K', loc='left')
 
 plt.savefig(paths.figures / f"llzo_plots.pdf", transparent=True)
 plt.close()

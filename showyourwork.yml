@@ -50,7 +50,7 @@ datasets:
 
 # Custom file dependencies
 dependencies:
-  src/scripts/ms.tex:
+  src/tex/ms.tex:
     - src/scripts/make_tex.py
     - src/tex/bib.bib
   src/scripts/llzo.py:
