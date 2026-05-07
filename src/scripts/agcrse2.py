@@ -86,7 +86,7 @@ axes[-1].fill_between(1 / smooth * 1000,
                       alpha=CREDIBLE_INTERVALS[0][-1],
                       color=fp.colors[0],
                       lw=0,
-                      label=r'$p[\theta_{\alpha} \, | \, (\widehat{\sigma}_{\mathrm{Ag^+}}\,|\,\mathbf{x})]$')
+                      label=r'$p[\mathbf{\theta}_{\alpha} \, | \, \sigma_{\mathrm{Ag^+}}]$')
 for j in CREDIBLE_INTERVALS[1:]:
     axes[-1].fill_between(1 / smooth * 1000, *np.percentile(k, j[:-1], axis=1), alpha=j[-1], color=fp.colors[0], lw=0)
 axes[-1].set_yscale("log", base=np.e)
@@ -105,7 +105,7 @@ axes[-1].errorbar(1 / td0.coords['temperature'].values * 1000,
                   td0.data.variances ** 0.5, marker=".", ls="", c='k', zorder=10)
 k = t.function(smooth[:, np.newaxis], *ss)
 axes[-1].fill_between(1 / smooth * 1000, *np.percentile(k, CREDIBLE_INTERVALS[0][:-1], axis=1), alpha=CREDIBLE_INTERVALS[0][-1], color=fp.colors[1], lw=0,
-                      label=r'$p[\theta_{\beta} \, | \, (\sigma_{\mathrm{Ag^+}}\,|\,\mathbf{x})]$')
+                      label=r'$p[\mathbf{\theta}_{\beta} \, | \, \sigma_{\mathrm{Ag^+}}]$')
 for j in CREDIBLE_INTERVALS[1:]:
     axes[-1].fill_between(1 / smooth * 1000, *np.percentile(k, j[:-1], axis=1), alpha=j[-1], color=fp.colors[1], lw=0)
 axes[-1].set_xlabel("$T^{-1}$ / 10$^{-3}$ K$^{-1}$")
@@ -183,11 +183,11 @@ axes[-1].yaxis.set_major_locator(plt.MaxNLocator(3))
 titles.append(r"(e) Bayes' factor vs. diffusive simulation time")
 
 x, _ = mid_points(axes[0])
-y = fig.axes[0].get_window_extent().y1 + 60
+y = fig.axes[0].get_window_extent().y1 + 35
 x, y = fig.transFigure.inverted().transform([x, y])
 fig.text(x, y, 'Arrhenius', ha='center', fontweight='bold')
 x, _ = mid_points(axes[1])
-y = fig.axes[1].get_window_extent().y1 + 60
+y = fig.axes[1].get_window_extent().y1 + 35
 x, y = fig.transFigure.inverted().transform([x, y])
 fig.text(x, y, 'VTF', ha='center', fontweight='bold')
 
