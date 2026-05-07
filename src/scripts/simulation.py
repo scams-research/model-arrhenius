@@ -70,7 +70,7 @@ for length in [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140]:
                             lw=0,
                             zorder=10)
         ax.set_xlabel(r"$\Delta t$ / ps")
-        ax.set_ylabel(r"$\langle\Delta\mathbf{r}_{\mathrm{c}}(t)^2_{\mathrm{Ag}^+}\rangle$ / Å$^2$")
+        ax.set_ylabel(r"$\langle\Delta \mathbf{r}_{\mathrm{c}}(t)^2_{\mathrm{Ag}^+}\rangle$ / Å$^2$")
         ax.set_xlim(0, None)
         ax.set_ylim(0, None)
         i += 1
@@ -82,17 +82,17 @@ for length in [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140]:
         hist = ax.stairs(y * 1e2, x, fill=True, color=fp.colors[1])
         if y.max() < 1.5e-2:
             ax.set_yticks([0, 1])
-        ax.set_xlabel(r"$\hat{\sigma}_{\mathrm{Ag}^+}$ / mS cm$^{-1}$")
-        ax.set_ylabel(r"$p(D^*)$ / $10^{-2}$ mS cm$^{-1}$")
+        ax.set_xlabel(r"$\widehat{\sigma}_{\mathrm{Ag}^+}$ / mS cm$^{-1}$")
+        ax.set_ylabel(r"$p(\widehat{\sigma}_{\mathrm{Ag}^+})$ / $10^{-2}$ mS cm$^{-1}$")
         i += 1
     lines.append(hist)
     for i, ax in enumerate(axes):
         if i % 2 == 0:
-            titles.append(r"$\mathbf{" + f"{ALPHABET[i]}" +
-                            r"}$ - $T = {" + f"{temp[int(i/2)]}" +
+            titles.append(f"({ALPHABET[i]})" +
+                            r" $T = {" + f"{temp[int(i/2)]}" +
                             r"}$ K")
         else:
-            titles.append(r"$\mathbf{" + f"{ALPHABET[i]}" + r"}$ - $T = {" +
+            titles.append(f"({ALPHABET[i]})" + r" $T = {" +
                             f"{temp[int(i/2)]}" + r"}$ K")
     axes.append(fig.add_subplot(gs[3, :3]))
     axes[-1].errorbar(1 / td0.coords['temperature'].values * 1000, td0.data.values, td0.data.variances ** 0.5, marker='.', ls='', c=fp.colors[1])
@@ -111,8 +111,8 @@ for length in [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140]:
     axes[-1].set_yticks([1e4, 1e5])
     axes[-1].set_yticklabels([f"$10^{np.log10(val):.0f}$" for val in [1e4, 1e5]]) 
     axes[-1].set_xlabel(r"$1000T^{-1}$/K$^{-1}$")
-    axes[-1].set_ylabel(r"$\hat{\sigma}_{\mathrm{Ag}^+}(T)T$ / mS cm$^{-1}$ K")
-    titles.append(r"$\mathbf{" + f"{ALPHABET[12]}" + r"}$ - Arrhenius model")
+    axes[-1].set_ylabel(r"$\widehat{\sigma}_{\mathrm{Ag}^+}(T)T$ / mS cm$^{-1}$ K")
+    titles.append(f"({ALPHABET[12]})" + " Arrhenius model")
 
     axes.append(fig.add_subplot(gs[3, 3:-2]))
     axes[-1].errorbar(1 / td0.coords['temperature'].values * 1000, td0.data.values, td0.data.variances ** 0.5, marker='.', ls='', c=fp.colors[1])    
@@ -131,17 +131,17 @@ for length in [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140]:
     axes[-1].set_ylim(5e3, 5e5)
     axes[-1].set_yticks([1e4, 1e5])
     axes[-1].set_yticks([])
-    titles.append(r"$\mathbf{" + f"{ALPHABET[13]}" + r"}$ - VTF model")
+    titles.append(f"({ALPHABET[13]})" + " VTF model")
 
     axes.append(fig.add_subplot(gs[3, -2:]))
     hist1 = axes[-1].hist(samples1[0], density=True, color=fp.colors[3], bins=fp.NBINS)
     hist2 = axes[-1].hist(samples2[0], density=True, color=fp.colors[4], bins=fp.NBINS)
-    axes[-1].set_xlabel('$E_a$/eV')
-    axes[-1].set_ylabel('$p(E_a)$/eV')
-    titles.append(r"$\mathbf{" + f"{ALPHABET[14]}" + r"}$ - $E_a$ distribution")
+    axes[-1].set_xlabel('$E_{\\mathrm{a}}$ / eV')
+    axes[-1].set_ylabel('$p(E_{\\mathrm{a}})$ / eV')
+    titles.append(f"({ALPHABET[14]})" + r" $E_{\mathrm{a}}$ distribution")
 
     labels = [
-        r'Observed $\langle\Delta\mathbf{r}_c(t)^2_{\mathrm{Ag}^+}\rangle$', 'Einstein Relation', r'$\hat{D}^*$', 'Arrhenius Relation',
+        r'Observed $\langle\Delta \mathbf{r}_{\mathrm{c}}(t)^2_{\mathrm{Ag}^+}\rangle$', 'Einstein Relation', r'$\widehat{\sigma}_{\mathrm{Ag}^+}$', 'Arrhenius Relation',
         'VTF Equation'
     ]
 
@@ -153,27 +153,10 @@ for length in [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140]:
 
     legend = plt.figlegend(lines, labels, loc='upper center', bbox_to_anchor=(0.5, 0.05), ncol=5)
 
-    x, _ = mid_points(axes[0])
-    y = fig.axes[0].get_window_extent().y1 + 40
-    x, y = fig.transFigure.inverted().transform([x, y])
-    fig.text(x, y, r'$\langle\Delta\mathbf{r}_c(t)^2_{\mathrm{Ag}^+}\rangle$', ha='center', fontweight='bold')
-    x, _ = mid_points(axes[1])
-    y = fig.axes[1].get_window_extent().y1 + 40
-    x, y = fig.transFigure.inverted().transform([x, y])
-    fig.text(x, y, r'$\hat{D}^*_{\mathrm{Ag}^+}$', ha='center', fontweight='bold')
-    x, _ = mid_points(axes[2])
-    y = fig.axes[2].get_window_extent().y1 + 40
-    x, y = fig.transFigure.inverted().transform([x, y])
-    fig.text(x, y, r'$\langle\Delta\mathbf{r}_c(t)^2_{\mathrm{Ag}^+}\rangle$', ha='center', fontweight='bold')
-    x, _ = mid_points(axes[3])
-    y = fig.axes[3].get_window_extent().y1 + 40
-    x, y = fig.transFigure.inverted().transform([x, y])
-    fig.text(x, y, r'$\hat{D}^*_{\mathrm{Ag}^+}$', ha='center', fontweight='bold')
-
     x_correction = [28, 28, 28, 28] * 3 + [30, 15, 30]
     for i, ax in enumerate(axes):
         x = ax.get_window_extent().x0 - x_correction[i]
-        y = ax.get_window_extent().y1 + 10
+        y = ax.get_window_extent().y1 + 18
         x, y = fig.transFigure.inverted().transform([x, y])
         f = fig.text(x, y, titles[i], ha='left')
 

@@ -231,12 +231,6 @@ Panel (b) shows these samples as a two-dimensional distribution, revealing that 
 Panels (c) and (d) show the marginal distributions for each parameter, obtained by integrating the samples along each axis. 
 This is equivalent to integrating the joint distribution over the other parameter, asking, for example, ``what is the probability of this value of $\Ea$, regardless of $A$?''
 
-The activation energy is approximately normally distributed, with mean and \qty{95}{\percent} credible interval of \variable{output/activation_energy_llzo.txt}. 
-The pre-exponential factor, however, is not normally distributed---it follows an approximately log-normal distribution. 
-For this parameter, we report the median and \qty{95}{\percent} credible interval: \variable{output/preexp_llzo.txt}.
-This illustrates one advantage of Bayesian posterior sampling: we obtain the full distribution of each parameter, rather than assuming normality.
-For $A$, reporting a symmetric interval around the mean would misrepresent our uncertainty.
-
 \begin{figure}
     % \vspace{-1.5\baselineskip}
     \centering
@@ -247,6 +241,12 @@ For $A$, reporting a symmetric interval around the mean would misrepresent our u
     \script{llzo.py}
     % \vspace{-1.5\baselineskip}
 \end{figure}
+
+The activation energy is approximately normally distributed, with mean and \qty{95}{\percent} credible interval of \variable{output/activation_energy_llzo.txt}. 
+The pre-exponential factor, however, is not normally distributed---it follows an approximately log-normal distribution. 
+For this parameter, we report the median and \qty{95}{\percent} credible interval: \variable{output/preexp_llzo.txt}.
+This illustrates one advantage of Bayesian posterior sampling: we obtain the full distribution of each parameter, rather than assuming normality.
+For $A$, reporting a symmetric interval around the mean would misrepresent our uncertainty.
 
 Arrhenius models are often fitted by taking logarithms and fitting a straight line to $\ln(\sigma T)$ versus $1/T$.
 This approach is convenient, but introduces bias: if the errors in $\sigma T$ are normally distributed, transforming to log space makes them log-normally distributed, violating the assumptions of linear regression and yielding biased estimates for $\Ea$ and $A$~\cite{McCluskey2023a}. 
@@ -512,7 +512,7 @@ The marginal posterior distribution for $\D$ is then used to find $\sigma$, whic
     \includegraphics[width=\textwidth]{figures/llzo_plots.pdf}
     \vspace{-2\baselineskip}
     \script{llzo_sim.py}
-    \caption{The mean squared displacement data and associated distribution of linear models at temperatures of \SIlist{500;600;700;800}{\kelvin} with \SI{50}{\pico\second} of LLZO simulation.}
+    \caption{The mean squared displacement data and associated distribution of linear models at temperatures of (a)~\SI{500}{\kelvin}, (b)~\SI{600}{\kelvin}, (c)~\SI{700}{\kelvin}, and (d)~\SI{800}{\kelvin} with \SI{50}{\pico\second} of LLZO simulation.}
     \label{fig:llzo_sim}
     \vspace{-1.5\baselineskip}
 \end{figure*}

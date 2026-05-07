@@ -9,6 +9,24 @@ Distributed under the terms of the MIT License
 """
 
 from matplotlib import rcParams
+import matplotlib.font_manager as fm
+
+helvetica = False
+try:
+    ttc_path = "/System/Library/Fonts/HelveticaNeue.ttc"
+    from fontTools.ttLib import TTCollection
+    import tempfile, os
+    ttc = TTCollection(ttc_path)
+    tmpdir = tempfile.mkdtemp()
+    for i, font in enumerate(ttc.fonts):
+        tmp_path = os.path.join(tmpdir, f"HelveticaNeue_{i}.ttf")
+        font.save(tmp_path)
+        fm.fontManager.addfont(tmp_path)
+    helvetica = True
+except Exception as e:
+    print("Warning: Could not load Helvetica Neue font.")
+    print(f"{e}")
+    print("Falling back to default sans-serif font.")
 
 # blue, orange, green, pink, dark green, grey
 colors = ["#0099c8", "#D55E00", "#029E73", "#CC78BC", "#006646", "#949494"]
@@ -24,8 +42,8 @@ CREDIBLE_INTERVALS = [[30.9, 69.1, 0.6], [15.9, 84.1, 0.5], [6.7, 93.3, 0.4],
 
 MASTER_FORMATTING = {
     "axes.formatter.limits": (-3, 3),
-    "xtick.major.pad": 1,
-    "ytick.major.pad": 1,
+    "xtick.major.pad": 2,
+    "ytick.major.pad": 2,
     "ytick.color": NEARLY_BLACK,
     "xtick.color": NEARLY_BLACK,
     "axes.labelcolor": NEARLY_BLACK,
@@ -51,9 +69,9 @@ MASTER_FORMATTING = {
     "axes.grid": False,
     "grid.color": WHITE,
     "lines.markersize": 1.0,
-    "xtick.major.size": 2.0,
+    "xtick.major.size": 3.0,
     "xtick.major.width": 1.0,
-    "ytick.major.size": 2.0,
+    "ytick.major.size": 3.0,
     "ytick.major.width": 1.0,
     "lines.scale_dashes": False,
     "xtick.labelsize": FONTSIZE,
@@ -61,6 +79,15 @@ MASTER_FORMATTING = {
     "legend.fontsize": FONTSIZE,
     "lines.linewidth": 1,
 }
+if helvetica:
+    MASTER_FORMATTING["font.family"] = "Helvetica Neue"
+    MASTER_FORMATTING["font.sans-serif"] = ["Helvetica Neue"]
+    MASTER_FORMATTING["mathtext.bf"] = "sans:bold"
+    MASTER_FORMATTING["mathtext.bfit"] = "sans:bold:italic"
+    MASTER_FORMATTING["mathtext.it"] = "sans:italic"
+    MASTER_FORMATTING["mathtext.rm"] = "sans"
+    MASTER_FORMATTING["mathtext.default"] = "it"
+
 for k, v in MASTER_FORMATTING.items():
     rcParams[k] = v
 

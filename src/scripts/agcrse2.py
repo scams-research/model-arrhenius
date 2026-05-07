@@ -86,17 +86,17 @@ axes[-1].fill_between(1 / smooth * 1000,
                       alpha=CREDIBLE_INTERVALS[0][-1],
                       color=fp.colors[0],
                       lw=0,
-                      label=r'$p[\theta_{\alpha} \, | \, (\sigma^{*}_{\mathrm{Ag^+}}\,|\,\mathbf{x})]$')
+                      label=r'$p[\theta_{\alpha} \, | \, (\widehat{\sigma}_{\mathrm{Ag^+}}\,|\,\mathbf{x})]$')
 for j in CREDIBLE_INTERVALS[1:]:
     axes[-1].fill_between(1 / smooth * 1000, *np.percentile(k, j[:-1], axis=1), alpha=j[-1], color=fp.colors[0], lw=0)
 axes[-1].set_yscale("log", base=np.e)
 axes[-1].set_xlabel("$T^{-1}$ / 10$^{-3}$ K$^{-1}$")
-axes[-1].set_ylabel(r"$\hat{\sigma}_{\mathrm{Ag}^+}$ / mS cm$^{-1}$ K")
+axes[-1].set_ylabel(r"$\widehat{\sigma}_{\mathrm{Ag}^+}$ / mS cm$^{-1}$ K")
 axes[-1].set_ylim(5e3, 5e5)
 axes[-1].set_yticks([1e4, 1e5])
 axes[-1].set_yticklabels([f"$10^{np.log10(val):.0f}$" for val in [1e4, 1e5]])
 # axes[-1].xaxis.set_major_locator(plt.MaxNLocator(3)) 
-titles.append(r"a - $t_{\mathrm{diff}} = $40 ps")
+titles.append(r"(a) $t_{\mathrm{diff}} = $40 ps")
 
 axes.append(fig.add_subplot(gs[0, 1]))
 ss = np.load(paths.data / f"reduced/agcrse2/bayes_{lengths[0]}_0.npz")['t_samples']
@@ -111,9 +111,10 @@ for j in CREDIBLE_INTERVALS[1:]:
 axes[-1].set_xlabel("$T^{-1}$ / 10$^{-3}$ K$^{-1}$")
 axes[-1].set_yscale("log", base=np.e)
 axes[-1].set_ylim(5e3, 5e5)
-axes[-1].set_yticks([])
+axes[-1].set_yticks([1e4, 1e5])
+axes[-1].set_yticklabels([])
 # axes[-1].xaxis.set_major_locator(plt.MaxNLocator(3))
-titles.append(r"b - $t_{\mathrm{diff}} = $40 ps")
+titles.append(r"(b) $t_{\mathrm{diff}} = $40 ps")
 
 s = Arrhenius(td1, bounds=((0 * sc.Unit('eV'), 1 * sc.Unit('eV')), (1e4 * td1.data.unit, 1e8 * td1.data.unit)))
 t = VogelFulcherTammann(td1, 
@@ -140,13 +141,13 @@ axes[-1].fill_between(1 / smooth * 1000,
 for j in CREDIBLE_INTERVALS[1:]:
     axes[-1].fill_between(1 / smooth * 1000, *np.percentile(k, j[:-1], axis=1), alpha=j[-1], color=fp.colors[0], lw=0)
 axes[-1].set_xlabel("$T^{-1}$ / 10$^{-3}$ K$^{-1}$")
-axes[-1].set_ylabel(r"$\hat{\sigma}_{\mathrm{Ag}^+}$ / mS cm$^{-1}$ K")
+axes[-1].set_ylabel(r"$\widehat{\sigma}_{\mathrm{Ag}^+}$ / mS cm$^{-1}$ K")
 axes[-1].set_yscale("log", base=np.e)
 axes[-1].set_ylim(5e3, 5e5)
 axes[-1].set_yticks([1e4, 1e5])
 axes[-1].set_yticklabels([f"$10^{np.log10(val):.0f}$" for val in [1e4, 1e5]])
 # axes[-1].xaxis.set_major_locator(plt.MaxNLocator(3))
-titles.append(r"c - $t_{\mathrm{diff}} = $140 ps")
+titles.append(r"(c) $t_{\mathrm{diff}} = $140 ps")
 
 axes.append(fig.add_subplot(gs[1, 1]))
 axes[-1].errorbar(1 / td1.coords['temperature'].values * 1000,
@@ -159,10 +160,11 @@ for j in CREDIBLE_INTERVALS:
 axes[-1].set_xlabel("$T^{-1}$ / 10$^{-3}$ K$^{-1}$")
 axes[-1].set_yscale("log", base=np.e)
 axes[-1].set_ylim(5e3, 5e5)
-axes[-1].set_yticks([])
+axes[-1].set_yticks([1e4, 1e5])
+axes[-1].set_yticklabels([])
 # axes[-1].set_ylabel("$\hat{D}^*_{\mathrm{Ag}^+}$/cm$^2$s$^{-1}$")
 # axes[-1].xaxis.set_major_locator(plt.MaxNLocator(3))
-titles.append(r"d - $t_{\mathrm{diff}} = $140 ps")
+titles.append(r"(d) $t_{\mathrm{diff}} = $140 ps")
 
 axes.append(fig.add_subplot(gs[2, :]))
 axes[-1].axhline(5, c=fp.colors[2], ls='--', label=r'$\ln(B_{{\beta\alpha}})=5$')
@@ -178,7 +180,7 @@ axes[-1].set_ylabel(r"$\ln(B_{\beta\alpha})$")
 # axes[-1].set_ylim(-10, None)
 axes[-1].set_xticks([40, 90, 140])
 axes[-1].yaxis.set_major_locator(plt.MaxNLocator(3))
-titles.append(r"e - Bayes' factor vs. diffusive simulation time")
+titles.append(r"(e) Bayes' factor vs. diffusive simulation time")
 
 x, _ = mid_points(axes[0])
 y = fig.axes[0].get_window_extent().y1 + 60
@@ -212,7 +214,7 @@ for ax in axes[:4]:
 
 plt.figlegend(handles[:2], labels[:2],
               loc='upper center',
-              bbox_to_anchor=(0.5, 0.975),
+              bbox_to_anchor=(0.5, 1.0),
               ncol=2)
 handles = []
 labels = []
