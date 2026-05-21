@@ -23,7 +23,7 @@ This tutorial introduces the use of Bayesian methods for analysing temperature-d
 <img src="https://img.shields.io/badge/arXiv-2512.17792-orange.svg"/>
 </a>
 <a href="https://doi.org/10.1103/nxgq-lmp6">
-<img src="https://img.shields.io/badge/publication%20DOI-10.1103/nxgq-lmp6-yellow.svg?style=flat"/>
+<img src="https://img.shields.io/badge/publication%20DOI-10.1103%2Fnxgq-lmp6-yellow.svg?style=flat"/>
 </a>
 <br><br>
 <a href="https://orcid.org/0000-0003-3381-5911">Andrew R. McCluskey</a>&ast;
